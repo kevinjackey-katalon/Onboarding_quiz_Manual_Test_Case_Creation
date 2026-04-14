@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Katalon — Manual Test Case Creation Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0d0f14; --surface:#161920; --surface2:#1e2230; --border:#2a2f3e;
+  --accent:#4fffb0; --accent2:#00c8ff; --accent3:#ff5f87;
+  --text:#e8eaf2; --muted:#6b7280;
+  --font-mono:'Space Mono',monospace; --font-body:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(79,255,176,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(79,255,176,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.container{max-width:780px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1}
+.wide{max-width:1000px}
+
+/* ── SCREENS ── */
+.screen{display:none}
+.screen.active{display:block}
+#screen-name,#screen-admin-login{min-height:100vh;align-items:center;justify-content:center}
+#screen-name.active,#screen-admin-login.active{display:flex !important}
+
+/* ── NAME ENTRY ── */
+.name-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;text-align:center;position:relative;z-index:1;animation:slideUp .5s ease both}
+.name-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px 20px 0 0}
+.badge{display:inline-block;background:rgba(79,255,176,.1);border:1px solid rgba(79,255,176,.3);color:var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:20px}
+.name-card h1{font-family:var(--font-mono);font-size:26px;font-weight:700;margin-bottom:8px;line-height:1.2}
+.name-card h1 span{color:var(--accent)}
+.name-card>p{color:var(--muted);font-size:14px;margin-bottom:32px;line-height:1.6}
+.name-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;color:var(--text);font-family:var(--font-body);font-size:15px;outline:none;transition:border-color .2s;margin-bottom:10px}
+.name-input:focus{border-color:var(--accent2)}
+.name-input::placeholder{color:var(--muted)}
+.name-error{color:var(--accent3);font-size:12px;margin-bottom:10px;font-family:var(--font-mono);display:none}
+.name-error.show{display:block}
+.start-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none;border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:opacity .2s,transform .15s}
+.start-btn:hover{opacity:.88;transform:translateY(-1px)}
+.meta-info{display:flex;justify-content:center;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--border)}
+.meta-item .val{font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--accent)}
+.meta-item .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+/* ── QUIZ ── */
+.quiz-header{text-align:center;margin-bottom:36px;animation:fadeDown .6s ease both}
+.quiz-greeting{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:1px;margin-bottom:4px}
+.quiz-header h2{font-family:var(--font-mono);font-size:20px;font-weight:700}
+.progress-wrap{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.progress-bar{flex:1;height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-family:var(--font-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.streak{display:none;background:rgba(79,255,176,.1);border:1px solid rgba(79,255,176,.25);border-radius:8px;padding:8px 16px;font-family:var(--font-mono);font-size:12px;color:var(--accent);text-align:center;margin-bottom:16px;animation:fadeIn .3s ease}
+.streak.show{display:block}
+.category-pill{display:inline-block;background:var(--surface2);border:1px solid var(--border);color:var(--accent2);font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:14px}
+.question-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:36px;margin-bottom:20px;position:relative;overflow:hidden;animation:slideUp .4s ease both}
+.question-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:16px 16px 0 0}
+.question-num{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:8px}
+.question-text{font-size:18px;font-weight:500;line-height:1.5;color:var(--text);margin-bottom:28px}
+.options{display:flex;flex-direction:column;gap:10px}
+.option{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:14px;transition:border-color .2s,background .2s,transform .15s;font-size:14px;color:var(--text);text-align:left;width:100%}
+.option:hover:not(:disabled){border-color:var(--accent2);background:rgba(0,200,255,.05);transform:translateX(4px)}
+.option .opt-letter{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,color .2s}
+.option.correct{border-color:var(--accent);background:rgba(79,255,176,.08);animation:pulse-correct .4s ease}
+.option.correct .opt-letter{background:var(--accent);color:#000;border-color:var(--accent)}
+.option.wrong{border-color:var(--accent3);background:rgba(255,95,135,.08);animation:shake .4s ease}
+.option.wrong .opt-letter{background:var(--accent3);color:#fff;border-color:var(--accent3)}
+.option.disabled{cursor:default;opacity:.55}
+.option.correct.disabled,.option.wrong.disabled{opacity:1}
+.feedback{display:none;margin-top:20px;padding:14px 18px;border-radius:10px;font-size:14px;line-height:1.5;border-left:3px solid}
+.feedback.show{display:block;animation:fadeIn .3s ease}
+.feedback.correct{background:rgba(79,255,176,.07);border-color:var(--accent);color:#a7ffe0}
+.feedback.wrong{background:rgba(255,95,135,.07);border-color:var(--accent3);color:#ffb3c6}
+.feedback strong{font-weight:600;display:block;margin-bottom:4px}
+.nav{display:flex;justify-content:flex-end;margin-top:16px}
+.btn{background:var(--accent);color:#000;border:none;border-radius:8px;padding:12px 28px;font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:opacity .2s,transform .15s;display:none}
+.btn:hover{opacity:.88;transform:translateY(-1px)}
+.btn.show{display:block}
+
+/* ── SCORE ── */
+#screen-score{text-align:center}
+.score-ring{width:160px;height:160px;margin:0 auto 32px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--border);stroke-width:10}
+.ring-fill{fill:none;stroke:url(#scoreGrad);stroke-width:10;stroke-linecap:round;stroke-dasharray:440;stroke-dashoffset:440;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1) .3s}
+.score-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.score-num{font-family:var(--font-mono);font-size:36px;font-weight:700;color:var(--accent);line-height:1}
+.score-denom{font-size:13px;color:var(--muted);margin-top:2px}
+.score-title{font-family:var(--font-mono);font-size:24px;font-weight:700;margin-bottom:10px}
+.score-sub{color:var(--muted);font-size:15px;margin-bottom:40px;line-height:1.6}
+.cat-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:32px}
+.cat-stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:left}
+.cat-stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-family:var(--font-mono)}
+.cat-stat-score{font-family:var(--font-mono);font-size:22px;font-weight:700;color:var(--accent)}
+.cat-stat-bar{height:3px;background:var(--border);border-radius:4px;margin-top:8px;overflow:hidden}
+.cat-stat-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1) .5s}
+.breakdown{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:32px;text-align:left}
+.breakdown-header{padding:16px 24px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:12px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.breakdown-row{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:14px;font-size:13px}
+.breakdown-row:last-child{border-bottom:none}
+.breakdown-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.breakdown-q{color:var(--text);line-height:1.4;font-size:13px}
+.breakdown-a{color:var(--muted);font-size:12px;margin-top:3px}
+.breakdown-a.c{color:var(--accent)}
+.breakdown-a.w{color:var(--accent3)}
+.restart-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none;border-radius:10px;padding:14px 40px;font-family:var(--font-mono);font-size:14px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .15s}
+.restart-btn:hover{opacity:.88;transform:translateY(-2px)}
+
+/* ── ADMIN LOGIN ── */
+.admin-login-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:400px;width:100%;text-align:center;animation:slideUp .5s ease both;position:relative;z-index:1}
+.admin-login-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent3),var(--accent2));border-radius:20px 20px 0 0}
+.admin-icon{font-size:40px;margin-bottom:16px}
+.admin-login-card h2{font-family:var(--font-mono);font-size:20px;font-weight:700;margin-bottom:8px}
+.admin-login-card>p{color:var(--muted);font-size:13px;margin-bottom:28px}
+.pw-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;color:var(--text);font-family:var(--font-mono);font-size:14px;outline:none;transition:border-color .2s;margin-bottom:10px;letter-spacing:3px}
+.pw-input:focus{border-color:var(--accent2)}
+.pw-error{color:var(--accent3);font-size:12px;font-family:var(--font-mono);margin-bottom:10px;display:none}
+.pw-error.show{display:block}
+.admin-login-btn{width:100%;background:linear-gradient(135deg,var(--accent3),#ff8fa3);color:#fff;border:none;border-radius:10px;padding:13px;font-family:var(--font-mono);font-size:13px;font-weight:700;cursor:pointer;transition:opacity .2s,transform .15s;letter-spacing:.5px}
+.admin-login-btn:hover{opacity:.88;transform:translateY(-1px)}
+.back-link{display:inline-block;margin-top:16px;color:var(--muted);font-size:12px;font-family:var(--font-mono);cursor:pointer;transition:color .2s}
+.back-link:hover{color:var(--accent)}
+
+/* ── ADMIN DASHBOARD ── */
+.admin-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;flex-wrap:wrap;gap:12px}
+.admin-topbar h1{font-family:var(--font-mono);font-size:20px;font-weight:700}
+.admin-topbar h1 span{color:var(--accent3)}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 18px;font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.5px;cursor:pointer;transition:border-color .2s,color .2s}
+.admin-btn:hover{border-color:var(--accent);color:var(--accent)}
+.admin-btn.danger:hover{border-color:var(--accent3);color:var(--accent3)}
+.admin-btn.export{border-color:rgba(79,255,176,.3);color:var(--accent)}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:28px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
+.kpi.green::after{background:var(--accent)}.kpi.blue::after{background:var(--accent2)}.kpi.red::after{background:var(--accent3)}.kpi.yellow::after{background:#ffd166}
+.kpi-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:var(--font-mono);margin-bottom:8px}
+.kpi-value{font-family:var(--font-mono);font-size:32px;font-weight:700;line-height:1}
+.kpi.green .kpi-value{color:var(--accent)}.kpi.blue .kpi-value{color:var(--accent2)}.kpi.red .kpi-value{color:var(--accent3)}.kpi.yellow .kpi-value{color:#ffd166}
+.kpi-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.section-title{font-family:var(--font-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.cat-perf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.cat-perf{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px}
+.cat-perf-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.cat-perf-name{font-size:13px;font-weight:500}
+.cat-perf-pct{font-family:var(--font-mono);font-size:16px;font-weight:700}
+.cat-perf-bar{height:6px;background:var(--border);border-radius:4px;overflow:hidden}
+.cat-perf-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1) .3s}
+.results-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;overflow-x:auto}
+.results-table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+.results-table th{padding:12px 16px;text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap}
+.results-table td{padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+.results-table tr:last-child td{border-bottom:none}
+.results-table tr:hover td{background:rgba(255,255,255,.02)}
+.score-badge{display:inline-block;padding:3px 10px;border-radius:999px;font-family:var(--font-mono);font-size:11px;font-weight:700}
+.score-badge.pass{background:rgba(79,255,176,.15);color:var(--accent)}
+.score-badge.fail{background:rgba(255,95,135,.15);color:var(--accent3)}
+.score-badge.mid{background:rgba(255,209,102,.15);color:#ffd166}
+.empty-state{text-align:center;padding:60px 24px;color:var(--muted)}
+.empty-state .eicon{font-size:40px;margin-bottom:16px}
+.empty-state p{font-size:14px;line-height:1.6}
+
+/* ── ADMIN LINK ── */
+.admin-link{position:fixed;bottom:20px;right:20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-family:var(--font-mono);font-size:10px;color:var(--muted);cursor:pointer;transition:color .2s,border-color .2s;z-index:100}
+.admin-link:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse-correct{0%{transform:scale(1)}50%{transform:scale(1.015)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+@media(max-width:520px){
+  .question-card{padding:24px 20px}
+  .question-text{font-size:16px}
+  .name-card,.admin-login-card{padding:32px 24px}
+}
+
+/* ── FILL-IN-BLANK / BUG / ORDER ── */
+.code-block{background:#0a0c10;border:1px solid var(--border);border-radius:10px;padding:18px 20px;font-family:var(--font-mono);font-size:12.5px;line-height:1.9;color:#cdd6f4;margin-bottom:20px;overflow-x:auto;white-space:pre}
+.code-block .kw{color:#cba6f7}.code-block .fn{color:#89b4fa}.code-block .str{color:#a6e3a1}.code-block .cm{color:#585b70;font-style:italic}.code-block .num{color:#fab387}
+.code-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.blank-wrap{display:inline-block;vertical-align:middle}
+.blank-input{background:rgba(79,255,176,.08);border:none;border-bottom:2px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:12.5px;padding:0 6px;outline:none;min-width:180px;white-space:normal;transition:border-color .2s}
+.blank-input:focus{border-color:var(--accent2)}
+.blank-input.correct-input{border-color:var(--accent)!important;color:var(--accent)}
+.blank-input.wrong-input{border-color:var(--accent3)!important;color:var(--accent3)}
+.bug-line{display:block;padding:2px 6px;border-radius:4px;cursor:pointer;transition:background .15s;margin:1px 0;white-space:pre}
+.bug-line:hover{background:rgba(255,255,255,.05)}
+.bug-line.selected-bug{background:rgba(255,95,135,.12);outline:1px solid rgba(255,95,135,.4)}
+.bug-line.correct-bug{background:rgba(79,255,176,.12);outline:1px solid rgba(79,255,176,.5)}
+.bug-line.wrong-bug{background:rgba(255,95,135,.2);outline:1px solid var(--accent3)}
+.bug-hint{font-size:12px;color:var(--muted);margin-bottom:12px;font-family:var(--font-mono);font-style:italic}
+.drag-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.drag-item{background:var(--surface2);border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-family:var(--font-mono);font-size:12px;color:#cdd6f4;cursor:grab;display:flex;align-items:center;gap:10px;transition:border-color .2s,background .2s,transform .15s;user-select:none}
+.drag-item:active{cursor:grabbing;transform:scale(1.01)}
+.drag-item.drag-over{border-color:var(--accent2);background:rgba(0,200,255,.07)}
+.drag-item.correct-order{border-color:var(--accent);background:rgba(79,255,176,.07)}
+.drag-item.wrong-order{border-color:var(--accent3);background:rgba(255,95,135,.07)}
+.drag-handle{color:var(--muted);font-size:16px;flex-shrink:0;line-height:1}
+.drag-num{font-size:10px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-family:var(--font-mono)}
+.check-btn{background:transparent;border:1.5px solid var(--accent);color:var(--accent);border-radius:8px;padding:9px 22px;font-family:var(--font-mono);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s;margin-bottom:4px;display:block}
+.check-btn:hover{background:rgba(79,255,176,.1)}
+.exercise-badge{display:inline-block;background:rgba(203,166,247,.1);border:1px solid rgba(203,166,247,.3);color:#cba6f7;font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:4px;margin-bottom:14px}
+</style>
+</head>
+<body>
+
+<button class="admin-link" onclick="showAdminLogin()">⚙ Admin</button>
+
+<!-- NAME ENTRY -->
+<div id="screen-name" class="screen active">
+  <div class="name-card">
+    <div class="badge">Professional Training</div>
+    <h1>Katalon TestOps<br><span>Manual Test Case Creation</span></h1>
+    <p>Enter your name to begin. Your results will be recorded for training review.</p>
+    <input class="name-input" id="name-input" type="text" placeholder="Your full name" maxlength="60" autocomplete="off">
+    <input class="name-input" id="org-input" type="text" placeholder="Your organisation" maxlength="80" autocomplete="off">
+    <div class="name-error" id="name-error">Please enter your name to continue.</div>
+    <button class="start-btn" onclick="startQuiz()">Begin Quiz →</button>
+    <div class="meta-info">
+      <div class="meta-item"><div class="val">20</div><div class="lbl">Questions</div></div>
+      <div class="meta-item"><div class="val">5</div><div class="lbl">Topics</div></div>
+      <div class="meta-item"><div class="val">75%</div><div class="lbl">Pass Mark</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="container">
+    <div class="quiz-header">
+      <div class="quiz-greeting" id="quiz-greeting"></div>
+      <h2>Manual Test Case Creation Quiz</h2>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">0 / 20</div>
+    </div>
+    <div class="streak" id="streak-banner"></div>
+    <div class="question-card" id="question-card">
+      <div class="category-pill" id="q-category"></div>
+      <div class="question-num" id="q-num"></div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+    <div class="nav">
+      <button class="btn" id="next-btn" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCORE -->
+<div id="screen-score" class="screen">
+  <div class="container">
+    <div class="score-ring">
+      <svg viewBox="0 0 160 160" width="160" height="160">
+        <defs>
+          <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4fffb0"/>
+            <stop offset="100%" stop-color="#00c8ff"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-bg" cx="80" cy="80" r="70"/>
+        <circle class="ring-fill" id="ring-fill" cx="80" cy="80" r="70"/>
+      </svg>
+      <div class="score-center">
+        <div class="score-num" id="score-num">0</div>
+        <div class="score-denom" id="score-denom">/ 20</div>
+      </div>
+    </div>
+    <div class="score-title" id="score-title"></div>
+    <div class="score-sub" id="score-sub"></div>
+    <div class="cat-stats" id="cat-stats"></div>
+    <div class="breakdown">
+      <div class="breakdown-header">Question Review</div>
+      <div id="breakdown-rows"></div>
+    </div>
+    <button class="restart-btn" onclick="restartQuiz()">↺ Retake Quiz</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="screen-admin-login" class="screen">
+  <div class="admin-login-card">
+    <div class="admin-icon">🔐</div>
+    <h2>Admin Access</h2>
+    <p>Enter the admin password to view trainee results.</p>
+    <input class="pw-input" id="pw-input" type="password" placeholder="••••••••••••">
+    <div class="pw-error" id="pw-error">Incorrect password. Try again.</div>
+    <button class="admin-login-btn" onclick="adminLogin()">Enter Dashboard</button>
+    <br>
+    <span class="back-link" onclick="showScreen('screen-name')">← Back to Quiz</span>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="screen-admin" class="screen">
+  <div class="container wide">
+    <div class="admin-topbar">
+      <h1>Training <span>Dashboard</span></h1>
+      <div class="admin-actions">
+        <button class="admin-btn export" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="admin-btn danger" onclick="clearResults()">🗑 Clear All</button>
+        <button class="admin-btn" onclick="showScreen('screen-name')">← Back to Quiz</button>
+      </div>
+    </div>
+    <div class="kpi-row" id="kpi-row"></div>
+    <div class="section-title">Performance by Category (All Attempts)</div>
+    <div class="cat-perf-grid" id="cat-perf-grid"></div>
+    <div class="section-title">All Attempts</div>
+    <div class="results-table-wrap">
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>#</th><th>Quiz</th><th>Name</th><th>Organisation</th><th>Score</th><th>Result</th><th>Date &amp; Time</th><th>Weakest Area</th>
+          </tr>
+        </thead>
+        <tbody id="results-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── QUESTIONS ──────────────────────────────────────────────────────────
+const ALL_QUESTIONS = [
+
+  // ── MULTIPLE CHOICE: Katalon Ecosystem ──
+  {category:"Katalon Ecosystem",
+   q:"Which Katalon product is the primary hub for Manual Testing and test management?",
+   options:["Katalon Studio","Katalon TrueTest","Katalon TestOps","Katalon Runtime"],
+   answer:2,
+   explanation:"Katalon TestOps is the central hub for manual testing and test management (admin, reporting, and execution tracking). Katalon Studio handles automation authoring, and Katalon Runtime handles CI/CD execution."},
+
+  {category:"Katalon Ecosystem",
+   q:"In the Katalon end-to-end quality ecosystem, what is the correct order of the four major phases?",
+   options:[
+     "Automation → Manual → Execution → Reporting",
+     "Manual → Automation → Execution → Reporting",
+     "Execution → Manual → Automation → Reporting",
+     "Reporting → Manual → Execution → Automation"
+   ],
+   answer:1,
+   explanation:"The correct pipeline is: Manual (TestOps) → Automation (TrueTest / Studio) → Execution (Runtime / TestCloud) → Reporting (TestOps). Manual test creation feeds into automation and eventual CI/CD execution."},
+
+  {category:"Katalon Ecosystem",
+   q:"Which GenAI capability in the Katalon ecosystem generates manual test cases from uploaded requirement documents?",
+   options:["AI Powered Insights","AI Generated Automated Tests","AI Generated Manual Tests","AI Powered Automation Assistant"],
+   answer:2,
+   explanation:"'AI Generated Manual Tests' is the specific GenAI feature that ingests requirement documents and produces structured TestOps manual test case records."},
+
+  // ── MULTIPLE CHOICE: Test Case Fundamentals ──
+  {category:"Test Case Fundamentals",
+   q:"Which of the following is a durable principle for writing high-quality test cases?",
+   options:[
+     "Assume prerequisite application state to save time",
+     "Write test cases that assume another test case has already run",
+     "Avoid redundancy — don't repeat test cases across suites",
+     "Use descriptive but unique symbols in test case names"
+   ],
+   answer:2,
+   explanation:"Avoiding redundancy is one of the six core durable principles. Repeating test cases wastes time and resources. The six principles are: test design technique, clear and concise tests, uniform nomenclature, no assumptions, avoid redundancy, and traceable tests."},
+
+  {category:"Test Case Fundamentals",
+   q:"What is the maximum character length for tags in a Katalon TestOps test case?",
+   options:["100 characters","25 characters","50 characters","No limit"],
+   answer:2,
+   explanation:"Tags in Katalon TestOps have a maximum of 50 characters and must not contain special symbols. Project-level tags also automatically sync to linked Katalon Studio projects."},
+
+  {category:"Test Case Fundamentals",
+   q:"Which of the following are the five required fields when creating a manual test case via the UI?",
+   options:[
+     "Name, Status, Priority, Description, Tags",
+     "Name, Automation Status, Priority, Assignee, Location",
+     "Name, Test Steps, Priority, Assignee, Tags",
+     "Name, Automation Status, Description, Precondition, Location"
+   ],
+   answer:1,
+   explanation:"The five required fields in the test case creation modal are: Name (foundational label), Automation Status (lifecycle stage), Priority (urgency level), Assignee (responsible person), and Location (directory path). All are marked Required."},
+
+  // ── MULTIPLE CHOICE: Data Intake Pathways ──
+  {category:"Data Intake Pathways",
+   q:"Which data intake pathway supports the highest volume of test cases in a single import?",
+   options:[
+     "Manual UI Entry — up to 50 cases",
+     "AI Requirements Import — up to 100 cases",
+     "Bulk CSV Import — up to 500 cases",
+     "Manual UI Entry — no limit"
+   ],
+   answer:2,
+   explanation:"Bulk CSV Import supports up to 500 test cases per file. Manual UI Entry and AI Requirements Import are both suited for low volume (1-10 cases). Splitting imports into batches of ~500 is recommended for system stability."},
+
+  {category:"Data Intake Pathways",
+   q:"What is the prerequisite for using the AI Requirements Import pathway?",
+   options:[
+     "A bulk-formatted CSV with ALM linkages",
+     "Direct access to Katalon Platform UI only",
+     "A pre-configured Jira or Azure DevOps ALM integration",
+     "A Katalon Studio project with an existing object repository"
+   ],
+   answer:1,
+   explanation:"AI Requirements Import requires direct access to the Katalon Platform UI and is designed for building test cases from pre-existing requirements. It works with Jira / Azure DevOps / requirement documents and handles 1-10 test cases at a time."},
+
+  {category:"Data Intake Pathways",
+   q:"During a Bulk CSV Import, what happens if a requirement linkage cell is left blank?",
+   options:[
+     "The import fails with a validation error",
+     "The test case is assigned to a default requirement",
+     "The test case bypasses requirement linkage entirely",
+     "The importer prompts the user to fill in the value"
+   ],
+   answer:2,
+   explanation:"If the ALM linkage cell is left blank during CSV import, the test case will bypass requirement linkage. This is by design — blank cells are treated as 'no linkage'. Note that automated mapping requires a pre-configured ALM integration."},
+
+  // ── MULTIPLE CHOICE: CSV Bulk Import Rules ──
+  {category:"CSV Bulk Import",
+   q:"Which of the following test case names violates the allowed CSV import syntax?",
+   options:[
+     "verify_login_page",
+     "1checkout-flow",
+     "test.case..verify",
+     "login(happy_path)"
+   ],
+   answer:2,
+   explanation:"Double periods (..) are never allowed anywhere in the name or path. Also, names cannot end with a period (.). The allowed syntax requires names to start with lowercase letters (a-z), numbers (1-9), or an underscore (_). Internal characters may include (), commas, periods (single), hyphens, and underscores."},
+
+  {category:"CSV Bulk Import",
+   q:"What does the Katalon Importer map when a CSV column contains 'Automation In Progress' in the Automation Status field?",
+   options:[
+     "It maps it to the 'In Progress' status in TestOps",
+     "It maps it directly to its exact corresponding TestOps Automation Status field value",
+     "It skips the row and logs a warning",
+     "It converts it to the default 'Not Automated' status"
+   ],
+   answer:1,
+   explanation:"During import, all CSV values are automatically mapped to their exact corresponding TestOps fields. The value 'Automation In Progress' maps directly to the Automation Status field in the resulting TestOps record with no transformation."},
+
+  // ── MULTIPLE CHOICE: AI Track 1 ──
+  {category:"AI Test Generation",
+   q:"In AI Test Generation Track 1, where do you begin the requirement selection process?",
+   options:[
+     "The Katalon AI tab → Enter a prompt",
+     "Tests → Test Cases → Create → AI Generate",
+     "The Plans tab in the left-hand TestOps menu → select a Sprint or Release",
+     "Assets → Requirements → Generate Cases"
+   ],
+   answer:2,
+   explanation:"Track 1 initiates from the Plans tab in the left-hand TestOps menu. You select a Sprint or Release to open the desired requirements list, then select an individual requirement to open the requirement conversion window."},
+
+  {category:"AI Test Generation",
+   q:"After Katalon AI analyses a requirement in Track 1, what three items are presented to the user?",
+   options:[
+     "A quality score, a list of test steps, and a save button",
+     "A requirement quality section, the full selected requirement text, and an 'Add More Context' button",
+     "A list of generated test cases, a discard option, and a requirements summary",
+     "A quality rating, auto-generated test steps, and a Jira sync option"
+   ],
+   answer:1,
+   explanation:"After analysis, the user sees: (1) a Requirement Quality section identifying gaps and offering clarification opportunities, (2) a listing of the entire selected requirement, and (3) a button allowing text entry of additional requirement context. These clarifications do NOT affect the requirement text in Jira."},
+
+  {category:"AI Test Generation",
+   q:"What is the maximum number of test cases Katalon AI can generate per requirement in Track 1?",
+   options:["5","20","15","10"],
+   answer:3,
+   explanation:"There is a maximum of 10 test cases generated per requirement in Track 1. For best results, ensure requirements are granular and detailed before generating."},
+
+  // ── FILL-IN-THE-BLANK ──
+  {type:"fill",category:"CSV Bulk Import",
+   q:"A CSV file has a test case name that reads <code>verify..login</code>. What syntax rule does this violate?",
+   code:'Rule violated: <span id="b1">_________________________</span> are never allowed anywhere in the name or path.',
+   blanks:[{id:"b1",answer:"double periods",alt:["Double periods","..","double period (..)"],placeholder:"restricted syntax"}],
+   explanation:"Double periods (..) are explicitly in the Restricted Syntax list. Names and paths must never contain '..' anywhere. They also cannot end with a single period."},
+
+  {type:"fill",category:"Test Case Fundamentals",
+   q:"Complete the description of the <strong>'No Assumptions'</strong> durable principle:",
+   code:'Do not assume any <span id="b2">____________________</span>, pre-requisite, or state of the application.',
+   blanks:[{id:"b2",answer:"functionality",alt:["Functionality"],placeholder:"..."}],
+   explanation:"The No Assumptions principle states: Do not assume any functionality, pre-requisite, or state of the application. Each test case must be self-contained and not rely on prior test execution."},
+
+  {type:"fill",category:"Katalon Ecosystem",
+   q:"Complete the synthesis statement about the Katalon architecture:",
+   code:'Every test case converges into a standardized, durable <span id="b3">________________</span> record.',
+   blanks:[{id:"b3",answer:"TestOps",alt:["testops","Katalon TestOps"],placeholder:"product name"}],
+   explanation:"Regardless of origin (manual UI entry, bulk CSV import, or AI generation), every test case converges into a standardized, durable TestOps record — the foundation of the Continuous Quality Loop."},
+
+  // ── ORDER THE STEPS ──
+  {type:"order",category:"Data Intake Pathways",
+   q:"Drag to arrange these steps in the correct order for completing a Bulk CSV Import into Katalon TestOps:",
+   items:[
+     {id:"o1",text:"Prepare and validate your CSV file (naming rules, column headers, ALM linkages)"},
+     {id:"o2",text:"Navigate to Tests → Test Cases in Katalon TestOps"},
+     {id:"o3",text:"Click the Import button and upload the CSV file"},
+     {id:"o4",text:"Review the import preview and confirm field mappings"},
+     {id:"o5",text:"Confirm the import — TestOps maps all values to corresponding fields"},
+     {id:"o6",text:"Verify created test cases appear in the correct folder location"}
+   ],
+   correctOrder:["o1","o2","o3","o4","o5","o6"],
+   explanation:"Correct sequence: prepare/validate CSV first, navigate to Test Cases, trigger the import, review the preview mappings, confirm execution, then verify the results in the target folder."},
+
+  {type:"order",category:"AI Test Generation",
+   q:"Drag to arrange the correct steps for Track 2: Prompt-Based Generation (Jira/ADO):",
+   items:[
+     {id:"p1",text:"Select the Katalon AI tab from the left-hand menu"},
+     {id:"p2",text:"Enter a specific prompt referencing the desired Jira/ADO ticket and save location"},
+     {id:"p3",text:"Submit the prompt and wait for Katalon AI to process"},
+     {id:"p4",text:"Expand the 'Ongoing Activities' section to monitor AI execution"},
+     {id:"p5",text:"Click 'Review Generated Test Cases' link to navigate to the target requirement page"},
+     {id:"p6",text:"Review, edit, or save the generated draft test cases"}
+   ],
+   correctOrder:["p1","p2","p3","p4","p5","p6"],
+   explanation:"Track 2 flow: open Katalon AI tab → craft a specific prompt with save location → submit → monitor via Ongoing Activities → navigate to requirement page → review/save drafts."},
+
+  {type:"order",category:"Test Case Fundamentals",
+   q:"Drag to arrange the six stages of the Continuous Quality Loop in the correct order:",
+   items:[
+     {id:"c1",text:"Requirement Analysis"},
+     {id:"c2",text:"Test Plan Creation"},
+     {id:"c3",text:"Test Case Creation"},
+     {id:"c4",text:"Test Case Execution"},
+     {id:"c5",text:"Defect Logging"},
+     {id:"c6",text:"Defect Fix & Re-verification"}
+   ],
+   correctOrder:["c1","c2","c3","c4","c5","c6"],
+   explanation:"The six-stage Continuous Quality Loop: 1. Requirement Analysis → 2. Test Plan Creation → 3. Test Case Creation → 4. Test Case Execution → 5. Defect Logging → 6. Defect Fix & Re-verification. The cycle then repeats."}
+];
+
+const PASS_MARK = 0.75;
+const QUIZ_NAME = "Katalon Manual Test Case Creation";
+const ADMIN_PW = "KatalonTrue";
+const CATS = ["Katalon Ecosystem","Test Case Fundamentals","Data Intake Pathways","CSV Bulk Import","AI Test Generation"];
+
+// ── STATE ──────────────────────────────────────────────────────────────
+let curQ=0,score=0,answered=false,userAnswers=[],streak=0,catScores={};
+let traineeName='',traineeOrg='',questions=[];
+
+// ── SCREENS ────────────────────────────────────────────────────────────
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ── NAME ENTRY ─────────────────────────────────────────────────────────
+document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz();});
+
+function startQuiz(){
+  const v=document.getElementById('name-input').value.trim();
+  if(!v){document.getElementById('name-error').classList.add('show');return;}
+  document.getElementById('name-error').classList.remove('show');
+  traineeName=v;
+  traineeOrg=document.getElementById('org-input').value.trim();
+  document.getElementById('quiz-greeting').textContent='Good luck, '+v.split(' ')[0]+'!';
+  initQuiz();
+  showScreen('screen-quiz');
+}
+
+// ── QUIZ INIT ──────────────────────────────────────────────────────────
+function initQuiz(){
+  curQ=0;score=0;answered=false;userAnswers=[];streak=0;catScores={};
+  CATS.forEach(c=>{catScores[c]={correct:0,total:0}});
+  questions=[...ALL_QUESTIONS].sort(()=>Math.random()-.5);
+  questions.forEach(q=>{if(catScores[q.category])catScores[q.category].total++;});
+  renderQuestion();
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────
+function renderQuestion(){
+  const q=questions[curQ];
+  answered=false;
+
+  const oldCat=document.getElementById('q-category');
+  const labels={fill:'Fill in the Blank',bug:'Spot the Bug',order:'Order the Steps'};
+  if(q.type){
+    oldCat.className='exercise-badge';
+    oldCat.innerHTML='&#x2328; '+labels[q.type]+' &mdash; '+q.category;
+  }else{
+    oldCat.className='category-pill';
+    oldCat.textContent=q.category;
+  }
+
+  document.getElementById('q-num').textContent='Question '+(curQ+1)+' of '+questions.length;
+  document.getElementById('q-text').innerHTML=q.q;
+
+  const optEl=document.getElementById('options');
+  const fb=document.getElementById('feedback');
+  fb.className='feedback';fb.innerHTML='';
+  document.getElementById('next-btn').className='btn';
+
+  if(!q.type){
+    optEl.innerHTML='';
+    ['A','B','C','D'].forEach((L,i)=>{
+      const b=document.createElement('button');
+      b.className='option';
+      b.innerHTML='<span class="opt-letter">'+L+'</span><span>'+q.options[i]+'</span>';
+      b.onclick=()=>selectAnswer(i);
+      optEl.appendChild(b);
+    });
+  } else if(q.type==='fill'){
+    optEl.innerHTML='<div class="code-label">Complete the sentence</div>'
+      +'<div class="code-block" id="code-display">'+q.code+'</div>'
+      +'<button class="check-btn" id="fill-check-btn" onclick="checkFill()">Check Answer</button>';
+    q.blanks.forEach(bl=>{
+      const span=document.getElementById(bl.id);
+      if(span){
+        const inp=document.createElement('input');
+        inp.className='blank-input';
+        inp.setAttribute('data-answer',bl.answer);
+        inp.setAttribute('data-alt',(bl.alt||[]).join('||'));
+        inp.placeholder=bl.placeholder||'...';
+        inp.size=Math.max((bl.placeholder||'').length+2,14);
+        inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkFill();});
+        span.replaceWith(inp);
+      }
+    });
+    setTimeout(()=>{const i=document.querySelector('.blank-input');if(i)i.focus();},50);
+  } else if(q.type==='order'){
+    const shuffled=[...q.items].sort(()=>Math.random()-.5);
+    let html='<div class="code-label">Drag to put in correct order</div>'
+      +'<div class="drag-list" id="drag-list">';
+    shuffled.forEach((item,i)=>{
+      html+='<div class="drag-item" id="'+item.id+'" draggable="true" data-id="'+item.id+'">'
+        +'<span class="drag-handle">&#x2807;</span>'
+        +'<span class="drag-num">'+(i+1)+'</span>'
+        +'<span>'+item.text+'</span>'
+        +'</div>';
+    });
+    html+='</div><button class="check-btn" onclick="checkOrder()">Check Order</button>';
+    optEl.innerHTML=html;
+    initDrag();
+  }
+
+  const pct=(curQ/questions.length)*100;
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=curQ+' / '+questions.length;
+  const sb=document.getElementById('streak-banner');
+  if(streak>=3){sb.textContent='🔥 '+streak+' correct in a row!';sb.className='streak show';}
+  else sb.className='streak';
+  const card=document.getElementById('question-card');
+  card.style.animation='none';card.offsetHeight;card.style.animation='slideUp .4s ease both';
+}
+
+// ── MCQ ────────────────────────────────────────────────────────────────
+function selectAnswer(idx){
+  if(answered)return;
+  answered=true;
+  const q=questions[curQ];
+  const opts=document.querySelectorAll('.option');
+  const ok=idx===q.answer;
+  opts.forEach((o,i)=>{
+    o.disabled=true;o.classList.add('disabled');
+    if(i===q.answer)o.classList.add('correct');
+    if(i===idx&&!ok)o.classList.add('wrong');
+  });
+  recordResult(ok,q.options[idx],q.options[q.answer]);
+}
+
+function recordResult(ok,yours,correct){
+  const q=questions[curQ];
+  const fb=document.getElementById('feedback');
+  if(ok){
+    score++;streak++;
+    if(catScores[q.category])catScores[q.category].correct++;
+    fb.className='feedback correct show';
+    fb.innerHTML='<strong>&#10003; Correct!</strong>'+q.explanation;
+  }else{
+    streak=0;
+    fb.className='feedback wrong show';
+    fb.innerHTML='<strong>&#10007; Not quite.</strong>'+q.explanation;
+  }
+  userAnswers.push({q:q.q,category:q.category,yours:String(yours),correct:String(correct),ok,type:q.type||'mcq'});
+  const nb=document.getElementById('next-btn');
+  nb.textContent=curQ<questions.length-1?'Next \u2192':'See Results';
+  nb.className='btn show';
+  const sb=document.getElementById('streak-banner');
+  if(streak>=3){sb.textContent='🔥 '+streak+' correct in a row!';sb.className='streak show';}
+}
+
+// ── FILL-IN-BLANK ──────────────────────────────────────────────────────
+function checkFill(){
+  if(answered)return;
+  answered=true;
+  const inputs=document.querySelectorAll('.blank-input');
+  let allOk=true;
+  inputs.forEach(inp=>{
+    const got=inp.value.trim().toLowerCase();
+    const expected=inp.getAttribute('data-answer').toLowerCase();
+    const alts=(inp.getAttribute('data-alt')||'').split('||').map(a=>a.trim().toLowerCase()).filter(Boolean);
+    const ok=got===expected||alts.includes(got);
+    inp.classList.add(ok?'correct-input':'wrong-input');
+    inp.disabled=true;
+    if(!ok){allOk=false;inp.value=inp.getAttribute('data-answer');}
+  });
+  const btn=document.getElementById('fill-check-btn');
+  if(btn)btn.disabled=true;
+  recordResult(allOk,allOk?'Correct':'Incorrect',questions[curQ].blanks.map(b=>b.answer).join(', '));
+}
+
+// ── DRAG TO ORDER ──────────────────────────────────────────────────────
+let dragSrc=null;
+function initDrag(){
+  const list=document.getElementById('drag-list');
+  if(!list)return;
+  list.addEventListener('dragstart',e=>{
+    dragSrc=e.target.closest('.drag-item');
+    if(dragSrc)e.dataTransfer.effectAllowed='move';
+  });
+  list.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const t=e.target.closest('.drag-item');
+    if(t&&t!==dragSrc)t.classList.add('drag-over');
+  });
+  list.addEventListener('dragleave',e=>{
+    const t=e.target.closest('.drag-item');
+    if(t)t.classList.remove('drag-over');
+  });
+  list.addEventListener('drop',e=>{
+    e.preventDefault();
+    const t=e.target.closest('.drag-item');
+    if(t&&t!==dragSrc){
+      t.classList.remove('drag-over');
+      const items=[...list.querySelectorAll('.drag-item')];
+      if(items.indexOf(dragSrc)<items.indexOf(t))t.after(dragSrc);else t.before(dragSrc);
+      updateDragNums(list);
+    }
+  });
+  // touch support
+  let ti=null,tc=null;
+  list.addEventListener('touchstart',e=>{
+    ti=e.target.closest('.drag-item');
+    if(!ti)return;
+    tc=ti.cloneNode(true);
+    tc.style.cssText='position:fixed;opacity:.8;pointer-events:none;z-index:999;width:'+ti.offsetWidth+'px;left:0;top:0;';
+    document.body.appendChild(tc);
+  },{passive:true});
+  list.addEventListener('touchmove',e=>{
+    if(!ti||!tc)return;e.preventDefault();
+    const t=e.touches[0];
+    tc.style.left=(t.clientX-ti.offsetWidth/2)+'px';
+    tc.style.top=(t.clientY-24)+'px';
+    const el=document.elementFromPoint(t.clientX,t.clientY);
+    const ov=el&&el.closest('.drag-item');
+    list.querySelectorAll('.drag-item').forEach(i=>i.classList.remove('drag-over'));
+    if(ov&&ov!==ti)ov.classList.add('drag-over');
+  },{passive:false});
+  list.addEventListener('touchend',e=>{
+    if(!ti||!tc)return;tc.remove();tc=null;
+    const t=e.changedTouches[0];
+    const el=document.elementFromPoint(t.clientX,t.clientY);
+    const tgt=el&&el.closest('.drag-item');
+    list.querySelectorAll('.drag-item').forEach(i=>i.classList.remove('drag-over'));
+    if(tgt&&tgt!==ti){
+      const items=[...list.querySelectorAll('.drag-item')];
+      if(items.indexOf(ti)<items.indexOf(tgt))tgt.after(ti);else tgt.before(ti);
+      updateDragNums(list);
+    }
+    ti=null;
+  },{passive:true});
+}
+function updateDragNums(list){
+  [...list.querySelectorAll('.drag-item')].forEach((item,i)=>{
+    item.querySelector('.drag-num').textContent=i+1;
+  });
+}
+function checkOrder(){
+  if(answered)return;
+  answered=true;
+  const q=questions[curQ];
+  const list=document.getElementById('drag-list');
+  const current=[...list.querySelectorAll('.drag-item')].map(i=>i.getAttribute('data-id'));
+  const ok=JSON.stringify(current)===JSON.stringify(q.correctOrder);
+  current.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if(el)el.classList.add(id===q.correctOrder[i]?'correct-order':'wrong-order');
+  });
+  const btn=list.nextElementSibling;
+  if(btn&&btn.classList.contains('check-btn'))btn.disabled=true;
+  recordResult(ok,'Submitted order',ok?'Correct order!':q.correctOrder.map((id,idx)=>{
+    const item=q.items.find(x=>x.id===id);
+    return (idx+1)+'. '+(item?item.text:'');
+  }).join(' | '));
+}
+
+// ── NEXT / SCORE ───────────────────────────────────────────────────────
+function nextQuestion(){
+  curQ++;
+  if(curQ>=questions.length)showScore();
+  else renderQuestion();
+}
+
+function showScore(){
+  showScreen('screen-score');
+  const pct=score/questions.length;
+  document.getElementById('score-num').textContent=score;
+  document.getElementById('score-denom').textContent='/ '+questions.length;
+  let title,sub;
+  if(pct>=.9){title='🏆 Outstanding!';sub='Excellent mastery of Manual Test Case Creation.';}
+  else if(pct>=.75){title='✅ Well Done!';sub='Strong understanding with a few areas to review.';}
+  else if(pct>=.6){title='📘 Good Effort';sub='Solid foundation — revisit the sections below.';}
+  else{title='🔄 Keep Practicing';sub='Review the training material and retake the quiz.';}
+  document.getElementById('score-title').textContent=title;
+  document.getElementById('score-sub').textContent=sub+' You scored '+score+' out of '+questions.length+' ('+Math.round(pct*100)+'%).';
+  setTimeout(()=>{document.getElementById('ring-fill').style.strokeDashoffset=440-(pct*440);},100);
+  const catEl=document.getElementById('cat-stats');catEl.innerHTML='';
+  CATS.forEach(c=>{
+    const d=catScores[c];if(!d||d.total===0)return;
+    const p=Math.round((d.correct/d.total)*100);
+    catEl.innerHTML+='<div class="cat-stat"><div class="cat-stat-label">'+c+'</div><div class="cat-stat-score">'+d.correct+'/'+d.total+'</div><div class="cat-stat-bar"><div class="cat-stat-fill" style="width:'+p+'%"></div></div></div>';
+  });
+  document.getElementById('breakdown-rows').innerHTML=userAnswers.map(a=>{
+    const icon=a.ok?'✅':'❌';
+    return '<div class="breakdown-row"><div class="breakdown-icon">'+icon+'</div><div>'
+      +'<div class="breakdown-q">'+a.q+'</div>'
+      +(!a.ok?'<div class="breakdown-a w">Yours: '+a.yours+'</div><div class="breakdown-a c">Correct: '+a.correct+'</div>'
+             :'<div class="breakdown-a c">'+a.correct+'</div>')
+      +'</div></div>';
+  }).join('');
+  saveResult({quiz:QUIZ_NAME,name:traineeName,org:traineeOrg,score,total:questions.length,pct:Math.round(pct*100),passed:pct>=PASS_MARK,catScores:JSON.parse(JSON.stringify(catScores)),ts:new Date().toISOString()});
+}
+
+function restartQuiz(){
+  document.getElementById('ring-fill').style.strokeDashoffset=440;
+  document.getElementById('name-input').value='';
+  document.getElementById('org-input').value='';
+  showScreen('screen-name');
+}
+
+// ── STORAGE (Upstash Redis via /api/results) ──────────────────────────
+async function saveResult(r){
+  try{
+    await fetch('/api/results',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(r)
+    });
+  }catch(e){console.warn('Failed to save result',e);}
+}
+async function getResults(){
+  try{
+    const res=await fetch('/api/results');
+    return await res.json();
+  }catch(e){return [];}
+}
+
+// ── ADMIN ──────────────────────────────────────────────────────────────
+function showAdminLogin(){
+  document.getElementById('pw-input').value='';
+  document.getElementById('pw-error').classList.remove('show');
+  showScreen('screen-admin-login');
+}
+document.getElementById('pw-input').addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin();});
+function adminLogin(){
+  if(document.getElementById('pw-input').value===ADMIN_PW){
+    document.getElementById('pw-error').classList.remove('show');
+    renderDashboard();showScreen('screen-admin');
+  }else{
+    document.getElementById('pw-error').classList.add('show');
+    document.getElementById('pw-input').value='';
+  }
+}
+async function renderDashboard(){
+  document.getElementById('kpi-row').innerHTML='<div style="color:var(--muted);font-family:var(--font-mono);font-size:13px;padding:8px 0">Loading results...</div>';
+  document.getElementById('cat-perf-grid').innerHTML='';
+  document.getElementById('results-tbody').innerHTML='';
+  const results=await getResults();
+  const total=results.length;
+  const passed=results.filter(r=>r.passed).length;
+  const avg=total?Math.round(results.reduce((s,r)=>s+r.pct,0)/total):0;
+  const high=total?Math.max(...results.map(r=>r.pct)):0;
+  document.getElementById('kpi-row').innerHTML=
+    '<div class="kpi blue"><div class="kpi-label">Total Attempts</div><div class="kpi-value">'+total+'</div><div class="kpi-sub">all time</div></div>'+
+    '<div class="kpi green"><div class="kpi-label">Pass Rate</div><div class="kpi-value">'+(total?Math.round((passed/total)*100):0)+'%</div><div class="kpi-sub">'+passed+' of '+total+' passed</div></div>'+
+    '<div class="kpi yellow"><div class="kpi-label">Avg Score</div><div class="kpi-value">'+avg+'%</div><div class="kpi-sub">pass mark: 75%</div></div>'+
+    '<div class="kpi '+(high>=75?'green':'red')+'"><div class="kpi-label">Top Score</div><div class="kpi-value">'+high+'%</div><div class="kpi-sub">best attempt</div></div>';
+  const catGrid=document.getElementById('cat-perf-grid');
+  if(!total){catGrid.innerHTML='<p style="color:var(--muted);font-size:13px;grid-column:1/-1;padding:8px 0">No results yet.</p>';}
+  else{
+    const agg={};CATS.forEach(c=>{agg[c]={correct:0,total:0}});
+    results.forEach(r=>{if(r.catScores)Object.entries(r.catScores).forEach(([c,d])=>{if(agg[c]){agg[c].correct+=d.correct;agg[c].total+=d.total;}});});
+    catGrid.innerHTML=CATS.map(c=>{
+      const d=agg[c];const p=d.total?Math.round((d.correct/d.total)*100):0;
+      const col=p>=75?'#4fffb0':p>=50?'#ffd166':'#ff5f87';
+      return '<div class="cat-perf"><div class="cat-perf-top"><div class="cat-perf-name">'+c+'</div><div class="cat-perf-pct" style="color:'+col+'">'+p+'%</div></div><div class="cat-perf-bar"><div class="cat-perf-fill" style="width:'+p+'%;background:'+col+'"></div></div></div>';
+    }).join('');
+  }
+  const tbody=document.getElementById('results-tbody');
+  if(!total){
+    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="eicon">📋</div><p>No quiz attempts yet.<br>Results will appear here once trainees complete the quiz.</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML=[...results].reverse().map((r,i)=>{
+    const bc=r.pct>=75?'pass':r.pct>=60?'mid':'fail';
+    const d=new Date(r.ts);
+    const ds=d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+    const ts=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+    let weak='&mdash;';
+    if(r.catScores){let mp=Infinity,mc=null;Object.entries(r.catScores).forEach(([c,data])=>{if(data.total>0){const p=data.correct/data.total;if(p<mp){mp=p;mc=c;}}});if(mc)weak=mc+' ('+Math.round(mp*100)+'%)';}
+    return '<tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:11px">'+(total-i)+'</td>'
+      +'<td style="color:var(--accent2);font-size:12px">'+esc(r.quiz||'&mdash;')+'</td>'
+      +'<td style="font-weight:500">'+esc(r.name)+'</td>'
+      +'<td style="color:var(--muted);font-size:12px">'+esc(r.org||'&mdash;')+'</td>'
+      +'<td style="font-family:var(--font-mono)">'+r.score+'/'+r.total+' <span style="color:var(--muted)">('+r.pct+'%)</span></td>'
+      +'<td><span class="score-badge '+bc+'">'+(r.pct>=75?'PASS':'FAIL')+'</span></td>'
+      +'<td style="color:var(--muted);font-size:12px">'+ds+' '+ts+'</td>'
+      +'<td style="color:var(--accent3);font-size:12px">'+weak+'</td></tr>';
+  }).join('');
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+async function clearResults(){
+  if(confirm('Clear ALL quiz results? This cannot be undone.')){
+    try{await fetch('/api/results',{method:'DELETE'});}catch(e){}
+    renderDashboard();
+  }
+}
+async function exportCSV(){
+  const results=await getResults();if(!results.length){alert('No results to export.');return;}
+  const headers=['#','Quiz','Name','Organisation','Score','Percentage','Passed','Timestamp',...CATS];
+  const rows=results.map((r,i)=>{
+    const cats=CATS.map(c=>{const d=r.catScores&&r.catScores[c];return d?d.correct+'/'+d.total:'N/A';});
+    return [i+1,'"'+(r.quiz||'')+'"','"'+r.name+'"','"'+(r.org||'')+'"',r.score+'/'+r.total,r.pct+'%',r.passed?'Yes':'No',r.ts,...cats];
+  });
+  const csv=[headers,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download='katalon-manual-quiz-results-'+Date.now()+'.csv';a.click();
+}
+</script>
+</body>
+</html>
