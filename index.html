@@ -151,6 +151,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .results-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;overflow-x:auto}
 .results-table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
 .results-table th{padding:12px 16px;text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap}
+.results-table th.sortable{cursor:pointer;user-select:none}
+.results-table th.sortable:hover{color:var(--accent)}
+.results-table th.sort-active{color:var(--accent2)}
 .results-table td{padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 .results-table tr:last-child td{border-bottom:none}
 .results-table tr:hover td{background:rgba(255,255,255,.02)}
@@ -319,7 +322,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
       <table class="results-table">
         <thead>
           <tr>
-            <th>#</th><th>Quiz</th><th>Name</th><th>Organisation</th><th>Score</th><th>Result</th><th>Date &amp; Time</th><th>Weakest Area</th>
+            <th>#</th><th id="th-quiz" class="sortable" onclick="toggleQuizSort()" title="Sort by Quiz">Quiz <span id="quiz-sort-icon">⇅</span></th><th>Name</th><th>Organisation</th><th>Score</th><th>Result</th><th>Date &amp; Time</th><th>Weakest Area</th>
           </tr>
         </thead>
         <tbody id="results-tbody"></tbody>
@@ -990,6 +993,18 @@ function adminLogin() {
     document.getElementById('pw-input').value = '';
   }
 }
+// ── SORT STATE ──────────────────────────────────────────────────────────
+let quizSortDir = null; // null = insertion order, 'asc', 'desc'
+function toggleQuizSort() {
+  quizSortDir = quizSortDir === 'asc' ? 'desc' : quizSortDir === 'desc' ? null : 'asc';
+  const icon = document.getElementById('quiz-sort-icon');
+  const th = document.getElementById('th-quiz');
+  if (quizSortDir === 'asc')  { icon.textContent = '↑'; th.classList.add('sort-active'); }
+  else if (quizSortDir === 'desc') { icon.textContent = '↓'; th.classList.add('sort-active'); }
+  else { icon.textContent = '⇅'; th.classList.remove('sort-active'); }
+  renderDashboard();
+}
+
 async function renderDashboard() {
   document.getElementById('kpi-row').innerHTML = '<div style="color:var(--muted);font-family:var(--font-mono);font-size:13px;padding:8px 0">Loading results...</div>';
   document.getElementById('cat-perf-grid').innerHTML = '';
@@ -1020,7 +1035,11 @@ async function renderDashboard() {
     tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="eicon">📋</div><p>No quiz attempts yet.<br>Results will appear here once trainees complete the quiz.</p></div></td></tr>';
     return;
   }
-  tbody.innerHTML = [...results].reverse().map((r, i) => {
+  tbody.innerHTML = (() => {
+    let rows = [...results].reverse();
+    if (quizSortDir === 'asc')  rows.sort((a, b) => (a.quiz || '').localeCompare(b.quiz || ''));
+    if (quizSortDir === 'desc') rows.sort((a, b) => (b.quiz || '').localeCompare(a.quiz || ''));
+    return rows.map((r, i) => {
     const bc = r.pct >= 75 ? 'pass' : r.pct >= 60 ? 'mid' : 'fail';
     const d = new Date(r.ts);
     const ds = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -1036,6 +1055,7 @@ async function renderDashboard() {
       + '<td style="color:var(--muted);font-size:12px">' + ds + ' ' + ts + '</td>'
       + '<td style="color:var(--accent3);font-size:12px">' + weak + '</td></tr>';
   }).join('');
+  })();
 }
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 async function clearResults() {

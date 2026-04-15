@@ -1,6 +1,6 @@
 const UPSTASH_URL = process.env.KV_REST_API_URL;
 const UPSTASH_TOKEN = process.env.KV_REST_API_TOKEN;
-const KEY = "katalon_manual_test_quiz_results";
+const KEY = "katalon_quiz_results";
 
 async function upstash(cmd) {
   const res = await fetch(`${UPSTASH_URL}/${cmd.join("/")}`, {
