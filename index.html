@@ -16,7 +16,7 @@
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(79,255,176,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(79,255,176,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 .container{max-width:780px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1}
-.wide{max-width:1000px}
+.wide{max-width:1060px}
 
 /* ── SCREENS ── */
 .screen{display:none}
@@ -25,17 +25,19 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 #screen-name.active,#screen-admin-login.active{display:flex !important}
 
 /* ── NAME ENTRY ── */
-.name-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:480px;width:100%;text-align:center;position:relative;z-index:1;animation:slideUp .5s ease both}
+.name-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:48px 40px;max-width:500px;width:100%;text-align:center;position:relative;z-index:1;animation:slideUp .5s ease both}
 .name-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px 20px 0 0}
 .badge{display:inline-block;background:rgba(79,255,176,.1);border:1px solid rgba(79,255,176,.3);color:var(--accent);font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:999px;margin-bottom:20px}
-.name-card h1{font-family:var(--font-mono);font-size:26px;font-weight:700;margin-bottom:8px;line-height:1.2}
+.name-card h1{font-family:var(--font-mono);font-size:24px;font-weight:700;margin-bottom:8px;line-height:1.25}
 .name-card h1 span{color:var(--accent)}
-.name-card>p{color:var(--muted);font-size:14px;margin-bottom:32px;line-height:1.6}
+.name-card>p{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
 .name-input{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 18px;color:var(--text);font-family:var(--font-body);font-size:15px;outline:none;transition:border-color .2s;margin-bottom:10px}
 .name-input:focus{border-color:var(--accent2)}
 .name-input::placeholder{color:var(--muted)}
-.name-error{color:var(--accent3);font-size:12px;margin-bottom:10px;font-family:var(--font-mono);display:none}
+.name-error{color:var(--accent3);font-size:12px;margin-bottom:10px;font-family:var(--font-mono);display:none;text-align:left}
 .name-error.show{display:block}
+.org-required{font-size:11px;color:var(--muted);font-family:var(--font-mono);margin-bottom:14px;text-align:left}
+.org-required span{color:var(--accent3)}
 .start-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;border:none;border-radius:10px;padding:14px;font-family:var(--font-mono);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:opacity .2s,transform .15s}
 .start-btn:hover{opacity:.88;transform:translateY(-1px)}
 .meta-info{display:flex;justify-content:center;gap:24px;margin-top:24px;padding-top:24px;border-top:1px solid var(--border)}
@@ -147,7 +149,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .cat-perf-bar{height:6px;background:var(--border);border-radius:4px;overflow:hidden}
 .cat-perf-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.4,0,.2,1) .3s}
 .results-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;overflow-x:auto}
-.results-table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+.results-table{width:100%;border-collapse:collapse;font-size:13px;min-width:680px}
 .results-table th{padding:12px 16px;text-align:left;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:var(--surface2);border-bottom:1px solid var(--border);white-space:nowrap}
 .results-table td{padding:13px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
 .results-table tr:last-child td{border-bottom:none}
@@ -177,12 +179,12 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
   .name-card,.admin-login-card{padding:32px 24px}
 }
 
-/* ── FILL-IN-BLANK / BUG / ORDER ── */
+/* ── CODING EXERCISES ── */
 .code-block{background:#0a0c10;border:1px solid var(--border);border-radius:10px;padding:18px 20px;font-family:var(--font-mono);font-size:12.5px;line-height:1.9;color:#cdd6f4;margin-bottom:20px;overflow-x:auto;white-space:pre}
 .code-block .kw{color:#cba6f7}.code-block .fn{color:#89b4fa}.code-block .str{color:#a6e3a1}.code-block .cm{color:#585b70;font-style:italic}.code-block .num{color:#fab387}
 .code-label{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
 .blank-wrap{display:inline-block;vertical-align:middle}
-.blank-input{background:rgba(79,255,176,.08);border:none;border-bottom:2px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:12.5px;padding:0 6px;outline:none;min-width:180px;white-space:normal;transition:border-color .2s}
+.blank-input{background:rgba(79,255,176,.08);border:none;border-bottom:2px solid var(--accent);color:var(--accent);font-family:var(--font-mono);font-size:12.5px;padding:0 6px;outline:none;min-width:160px;white-space:normal;transition:border-color .2s}
 .blank-input:focus{border-color:var(--accent2)}
 .blank-input.correct-input{border-color:var(--accent)!important;color:var(--accent)}
 .blank-input.wrong-input{border-color:var(--accent3)!important;color:var(--accent3)}
@@ -213,11 +215,13 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <div id="screen-name" class="screen active">
   <div class="name-card">
     <div class="badge">Professional Training</div>
-    <h1>Katalon TestOps<br><span>Manual Test Case Creation</span></h1>
-    <p>Enter your name to begin. Your results will be recorded for training review.</p>
+    <h1>Katalon<br><span>Manual Test Case Creation</span></h1>
+    <p>Enter your details to begin. Your results will be recorded for training review.</p>
     <input class="name-input" id="name-input" type="text" placeholder="Your full name" maxlength="60" autocomplete="off">
-    <input class="name-input" id="org-input" type="text" placeholder="Your organisation" maxlength="80" autocomplete="off">
-    <div class="name-error" id="name-error">Please enter your name to continue.</div>
+    <input class="name-input" id="org-input" type="text" placeholder="Your organisation (required)" maxlength="80" autocomplete="off">
+    <div class="org-required"><span>*</span> Organisation is required</div>
+    <div class="name-error" id="name-error">Please enter your full name to continue.</div>
+    <div class="name-error" id="org-error">Please enter your organisation to continue.</div>
     <button class="start-btn" onclick="startQuiz()">Begin Quiz →</button>
     <div class="meta-info">
       <div class="meta-item"><div class="val">20</div><div class="lbl">Questions</div></div>
@@ -328,601 +332,712 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 // ── QUESTIONS ──────────────────────────────────────────────────────────
 const ALL_QUESTIONS = [
 
-  // ── MULTIPLE CHOICE: Katalon Ecosystem ──
-  {category:"Katalon Ecosystem",
-   q:"Which Katalon product is the primary hub for Manual Testing and test management?",
-   options:["Katalon Studio","Katalon TrueTest","Katalon TestOps","Katalon Runtime"],
-   answer:2,
-   explanation:"Katalon TestOps is the central hub for manual testing and test management (admin, reporting, and execution tracking). Katalon Studio handles automation authoring, and Katalon Runtime handles CI/CD execution."},
+  // ── Ecosystem & Architecture ──────────────────────────────────────
+  {
+    category: "Ecosystem",
+    q: "Within the Katalon end-to-end quality management ecosystem, which product handles the Manual Testing and Admin phase?",
+    options: [
+      "Katalon Studio",
+      "Katalon TestOps",
+      "Katalon TrueTest",
+      "Katalon Runtime"
+    ],
+    answer: 1,
+    explanation: "Katalon TestOps handles the Manual Testing and Admin phase of the ecosystem. It is the hub for test management, manual test execution, reporting, and administration across the entire quality loop."
+  },
+  {
+    category: "Ecosystem",
+    q: "What is the key architectural principle described as the 'unified destination' for all test cases in the Katalon ecosystem?",
+    options: [
+      "Every test case is stored in Katalon Studio's Object Repository",
+      "Regardless of origin, all test cases converge into a standardised, durable TestOps record",
+      "CSV imports create standalone records separate from the platform",
+      "AI-generated tests are stored in a separate GenAI vault"
+    ],
+    answer: 1,
+    explanation: "The Katalon architecture's core principle is that every test case — whether created via Manual UI Entry, Bulk CSV Import, or AI Requirements Import — converges into a standardised, durable TestOps record ready for the Continuous Quality Loop."
+  },
+  {
+    category: "Ecosystem",
+    q: "Which of the following correctly lists the three data intake pathways for creating manual test cases in Katalon TestOps?",
+    options: [
+      "Katalon Studio recording, API import, and CSV upload",
+      "Manual UI Entry, Bulk CSV Import, and AI Requirements Import",
+      "Web recorder, Mobile recorder, and API recorder",
+      "Jira sync, Azure DevOps sync, and direct database entry"
+    ],
+    answer: 1,
+    explanation: "The three data intake pathways are Manual UI Entry (low volume, ad-hoc), Bulk CSV Import (high volume, migrating legacy suites), and AI Requirements Import (AI-generated from pre-existing requirements in Jira / Azure DevOps)."
+  },
 
-  {category:"Katalon Ecosystem",
-   q:"In the Katalon end-to-end quality ecosystem, what is the correct order of the four major phases?",
-   options:[
-     "Automation → Manual → Execution → Reporting",
-     "Manual → Automation → Execution → Reporting",
-     "Execution → Manual → Automation → Reporting",
-     "Reporting → Manual → Execution → Automation"
-   ],
-   answer:1,
-   explanation:"The correct pipeline is: Manual (TestOps) → Automation (TrueTest / Studio) → Execution (Runtime / TestCloud) → Reporting (TestOps). Manual test creation feeds into automation and eventual CI/CD execution."},
+  // ── Test Case Lifecycle & Principles ─────────────────────────────
+  {
+    category: "Lifecycle & Principles",
+    q: "What is the correct order of the Continuous Quality Loop lifecycle stages?",
+    options: [
+      "Test Plan Creation → Requirement Analysis → Test Case Creation → Execution → Defect Logging → Fix & Re-verification",
+      "Requirement Analysis → Test Plan Creation → Test Case Creation → Test Case Execution → Defect Logging → Defect Fix & Re-verification",
+      "Test Case Creation → Execution → Defect Logging → Requirement Analysis → Test Plan → Fix",
+      "Execution → Test Plan → Requirement Analysis → Test Case Creation → Fix → Defect Logging"
+    ],
+    answer: 1,
+    explanation: "The Continuous Quality Loop runs: 1. Requirement Analysis → 2. Test Plan Creation → 3. Test Case Creation → 4. Test Case Execution → 5. Defect Logging → 6. Defect Fix & Re-verification, then loops back."
+  },
+  {
+    category: "Lifecycle & Principles",
+    q: "Which durable test case principle states you should 'use a traceability matrix to ensure 100% of the application gets covered'?",
+    options: [
+      "No Assumptions",
+      "Avoid redundancy",
+      "Traceable tests",
+      "Uniform nomenclature"
+    ],
+    answer: 2,
+    explanation: "Traceable tests means using a traceability matrix to ensure 100% of the application is covered. This principle ensures every requirement maps to one or more test cases, preventing coverage gaps."
+  },
+  {
+    category: "Lifecycle & Principles",
+    q: "The 'No Assumptions' principle for durable test case design means:",
+    options: [
+      "Always set all test case fields to default values",
+      "Do not assume any functionality, pre-requisite, or state of the application",
+      "Avoid using test data that has not been pre-approved",
+      "Never create test cases from requirements"
+    ],
+    answer: 1,
+    explanation: "No Assumptions means a test case must document every prerequisite and expected application state explicitly. Never assume the application is in a specific state or that a previous test has already run."
+  },
 
-  {category:"Katalon Ecosystem",
-   q:"Which GenAI capability in the Katalon ecosystem generates manual test cases from uploaded requirement documents?",
-   options:["AI Powered Insights","AI Generated Automated Tests","AI Generated Manual Tests","AI Powered Automation Assistant"],
-   answer:2,
-   explanation:"'AI Generated Manual Tests' is the specific GenAI feature that ingests requirement documents and produces structured TestOps manual test case records."},
+  // ── Manual UI Entry ───────────────────────────────────────────────
+  {
+    category: "Manual UI Entry",
+    q: "To create a test case manually in Katalon TestOps, what is the correct navigation path?",
+    options: [
+      "Dashboard → New Test → Test Case",
+      "UI → Tests → Test Cases → + CREATE → Test Case",
+      "Project → Settings → Test Management → New Case",
+      "Assets → Library → Create Test Case"
+    ],
+    answer: 1,
+    explanation: "The correct path is: navigate to UI → Tests → Test Cases, then click the + CREATE button and select Test Case to open the creation modal."
+  },
+  {
+    category: "Manual UI Entry",
+    q: "Which of the following fields is NOT listed as a required field in the Test Case creation modal?",
+    options: [
+      "Name",
+      "Automation Status",
+      "Priority",
+      "Description"
+    ],
+    answer: 3,
+    explanation: "Description is part of the Documentation enrichment layer and is not a required creation field. The five required fields are: Name, Automation Status, Priority, Assignee, and Location."
+  },
+  {
+    category: "Manual UI Entry",
+    q: "What is the purpose of the 'Save & Create Another' button in the test case creation modal?",
+    options: [
+      "Saves the current test case and opens it in Katalon Studio",
+      "Automatically inputs an additional test case without navigating away from the current screen",
+      "Duplicates the current test case with the same fields",
+      "Saves and immediately schedules the test case for execution"
+    ],
+    answer: 1,
+    explanation: "Save & Create Another allows you to automatically input an additional test case without navigating away from the current creation screen — ideal for rapid bulk manual entry."
+  },
+  {
+    category: "Manual UI Entry",
+    q: "Which metadata layer in Katalon TestOps specifies that tags have a maximum of 50 characters and no special symbols?",
+    options: [
+      "Categorization",
+      "Documentation",
+      "Tags",
+      "Custom Expansion"
+    ],
+    answer: 2,
+    explanation: "The Tags enrichment layer has the constraint: maximum 50 characters, no special symbols. Project-level tags also automatically sync to linked Katalon Studio projects."
+  },
 
-  // ── MULTIPLE CHOICE: Test Case Fundamentals ──
-  {category:"Test Case Fundamentals",
-   q:"Which of the following is a durable principle for writing high-quality test cases?",
-   options:[
-     "Assume prerequisite application state to save time",
-     "Write test cases that assume another test case has already run",
-     "Avoid redundancy — don't repeat test cases across suites",
-     "Use descriptive but unique symbols in test case names"
-   ],
-   answer:2,
-   explanation:"Avoiding redundancy is one of the six core durable principles. Repeating test cases wastes time and resources. The six principles are: test design technique, clear and concise tests, uniform nomenclature, no assumptions, avoid redundancy, and traceable tests."},
+  // ── Bulk CSV Import ───────────────────────────────────────────────
+  {
+    category: "Bulk CSV Import",
+    q: "What is the recommended maximum number of test cases per CSV import file for system stability?",
+    options: [
+      "100 test cases",
+      "250 test cases",
+      "500 test cases",
+      "1,000 test cases"
+    ],
+    answer: 2,
+    explanation: "The Optimization Protocol recommends splitting import files into smaller batches of approximately 500 test cases per file to ensure maximum system stability."
+  },
+  {
+    category: "Bulk CSV Import",
+    q: "Which of the following is ALLOWED syntax for test case names and paths in a CSV import?",
+    options: [
+      "my..test_case",
+      "Login_Test(Chrome)",
+      "Verify Resources Page.",
+      "//smoke/login"
+    ],
+    answer: 1,
+    explanation: "Login_Test(Chrome) is valid — names can contain parentheses (), commas, periods, hyphens, and underscores internally. The restricted syntax includes double periods (..), ending with a period, and path separators."
+  },
+  {
+    category: "Bulk CSV Import",
+    q: "During a CSV bulk import, CSV column values are automatically mapped to their corresponding TestOps fields. What happens if the 'Requirement Linkage' cell is left blank?",
+    options: [
+      "The import fails with a validation error",
+      "The test case is assigned to a default requirement",
+      "The test case will bypass requirement linkage",
+      "The field defaults to the last used requirement ID"
+    ],
+    answer: 2,
+    explanation: "If the Requirement Linkage cell is left blank, the test case will simply bypass requirement linkage. Note: automated mapping of requirement linkages requires a pre-configured ALM integration."
+  },
+  {
+    category: "Bulk CSV Import",
+    q: "What is the scale advantage of Bulk CSV Import compared to Manual UI Entry?",
+    options: [
+      "Manual UI Entry: up to 50 cases; CSV: up to 200 cases",
+      "Manual UI Entry: 1–10 cases; CSV: up to 500 cases",
+      "Both handle the same volume but CSV is faster",
+      "CSV can import unlimited cases; Manual is limited to 5"
+    ],
+    answer: 1,
+    explanation: "Manual UI Entry is designed for low volume (1–10 cases), best for ad-hoc and exploratory testing. Bulk CSV Import supports high volume — up to 500 cases per file — and is best for migrating legacy test suites."
+  },
 
-  {category:"Test Case Fundamentals",
-   q:"What is the maximum character length for tags in a Katalon TestOps test case?",
-   options:["100 characters","25 characters","50 characters","No limit"],
-   answer:2,
-   explanation:"Tags in Katalon TestOps have a maximum of 50 characters and must not contain special symbols. Project-level tags also automatically sync to linked Katalon Studio projects."},
+  // ── AI-Based Test Case Generation ─────────────────────────────────
+  {
+    category: "AI Test Generation",
+    q: "What are the three tracks in the AI-based test case generation flowchart?",
+    options: [
+      "UI Recording, Script Generation, and API Generation",
+      "Plans Tab UI Conversion, Prompt-Based Generation (Jira/ADO), and Document-Based Generation",
+      "Requirement Sync, AI Drafting, and Manual Review",
+      "GenAI Prompting, CSV AI Import, and Studio AI Assist"
+    ],
+    answer: 1,
+    explanation: "The Three-Track AI Generation Flowchart consists of: Track 1 – Plans Tab UI Conversion (UI-driven path), Track 2 – Prompt-Based Generation via Jira/ADO (agentic path), and Track 3 – Document-Based Generation (ingestion path)."
+  },
+  {
+    category: "AI Test Generation",
+    q: "In Track 1 (Plans Tab UI Conversion), what is the initiation step?",
+    options: [
+      "Upload a requirements document via the paperclip icon in the AI tab",
+      "Navigate to the Plans tab in the left-hand TestOps menu, then select a Sprint or Release to open the desired requirements list",
+      "Enter a prompt in the Katalon AI tab targeting a specific Jira ticket",
+      "Click + CREATE in Tests and select 'AI Generate'"
+    ],
+    answer: 1,
+    explanation: "Track 1 Initiation Step: Navigate to the Plans tab in the left-hand TestOps menu, then select a Sprint or Release to open the desired related requirements list. This opens the requirement conversion window."
+  },
+  {
+    category: "AI Test Generation",
+    q: "What does the Requirement Quality score shown during Track 1 AI analysis indicate?",
+    options: [
+      "The number of test cases that will be generated",
+      "The percentage of requirements already covered by existing test cases",
+      "An AI assessment of requirement clarity, identifying areas that may be lacking and offering clarification opportunities",
+      "The automation readiness score for the requirement"
+    ],
+    answer: 2,
+    explanation: "The Requirement Quality score (e.g. 86% EXCELLENT) is an AI analysis identifying areas where a requirement may be lacking and offering an opportunity for requirement clarification. These clarifications do NOT affect the original requirement text in Jira."
+  },
+  {
+    category: "AI Test Generation",
+    q: "For Track 2 (Prompt-Based Generation via Jira/ADO), what is the correct step sequence?",
+    options: [
+      "Upload document → Enter prompt → Click Generate → Save drafts",
+      "Select Katalon AI tab → Enter specific prompt → Submit → Expand ongoing activities → Click 'Review Generated Test Cases'",
+      "Navigate to Plans → Select requirement → Click AI Generate → Review",
+      "Open Studio Assist → Connect Jira → Enter ticket ID → Generate"
+    ],
+    answer: 1,
+    explanation: "Track 2 steps: 1. Select the Katalon AI tab from the left-hand menu, 2. Enter a specific prompt (including save locations, browsers, etc.), 3. Submit prompt → Expand ongoing activities section to see AI at work, 4. Click 'Review Generated Test Cases' link to go to the target requirement page."
+  },
+  {
+    category: "AI Test Generation",
+    q: "In Track 3 (Document-Based Generation), how do you attach a requirements document?",
+    options: [
+      "Drag and drop it onto the Plans timeline",
+      "Upload it via Admin Settings → Document Library",
+      "Select the Katalon AI tab, then select file(s) using the 'paperclip' icon",
+      "Import it through the CSV bulk import pathway"
+    ],
+    answer: 2,
+    explanation: "Track 3 instructions: 1. Select the Katalon AI tab and select file(s) leveraging the 'paperclip' icon. 2. Enter a specific text prompt and submit, then click 'Review Generated Test Cases'. The AI processes the uploaded document directly."
+  },
 
-  {category:"Test Case Fundamentals",
-   q:"Which of the following are the five required fields when creating a manual test case via the UI?",
-   options:[
-     "Name, Status, Priority, Description, Tags",
-     "Name, Automation Status, Priority, Assignee, Location",
-     "Name, Test Steps, Priority, Assignee, Tags",
-     "Name, Automation Status, Description, Precondition, Location"
-   ],
-   answer:1,
-   explanation:"The five required fields in the test case creation modal are: Name (foundational label), Automation Status (lifecycle stage), Priority (urgency level), Assignee (responsible person), and Location (directory path). All are marked Required."},
-
-  // ── MULTIPLE CHOICE: Data Intake Pathways ──
-  {category:"Data Intake Pathways",
-   q:"Which data intake pathway supports the highest volume of test cases in a single import?",
-   options:[
-     "Manual UI Entry — up to 50 cases",
-     "AI Requirements Import — up to 100 cases",
-     "Bulk CSV Import — up to 500 cases",
-     "Manual UI Entry — no limit"
-   ],
-   answer:2,
-   explanation:"Bulk CSV Import supports up to 500 test cases per file. Manual UI Entry and AI Requirements Import are both suited for low volume (1-10 cases). Splitting imports into batches of ~500 is recommended for system stability."},
-
-  {category:"Data Intake Pathways",
-   q:"What is the prerequisite for using the AI Requirements Import pathway?",
-   options:[
-     "A bulk-formatted CSV with ALM linkages",
-     "Direct access to Katalon Platform UI only",
-     "A pre-configured Jira or Azure DevOps ALM integration",
-     "A Katalon Studio project with an existing object repository"
-   ],
-   answer:1,
-   explanation:"AI Requirements Import requires direct access to the Katalon Platform UI and is designed for building test cases from pre-existing requirements. It works with Jira / Azure DevOps / requirement documents and handles 1-10 test cases at a time."},
-
-  {category:"Data Intake Pathways",
-   q:"During a Bulk CSV Import, what happens if a requirement linkage cell is left blank?",
-   options:[
-     "The import fails with a validation error",
-     "The test case is assigned to a default requirement",
-     "The test case bypasses requirement linkage entirely",
-     "The importer prompts the user to fill in the value"
-   ],
-   answer:2,
-   explanation:"If the ALM linkage cell is left blank during CSV import, the test case will bypass requirement linkage. This is by design — blank cells are treated as 'no linkage'. Note that automated mapping requires a pre-configured ALM integration."},
-
-  // ── MULTIPLE CHOICE: CSV Bulk Import Rules ──
-  {category:"CSV Bulk Import",
-   q:"Which of the following test case names violates the allowed CSV import syntax?",
-   options:[
-     "verify_login_page",
-     "1checkout-flow",
-     "test.case..verify",
-     "login(happy_path)"
-   ],
-   answer:2,
-   explanation:"Double periods (..) are never allowed anywhere in the name or path. Also, names cannot end with a period (.). The allowed syntax requires names to start with lowercase letters (a-z), numbers (1-9), or an underscore (_). Internal characters may include (), commas, periods (single), hyphens, and underscores."},
-
-  {category:"CSV Bulk Import",
-   q:"What does the Katalon Importer map when a CSV column contains 'Automation In Progress' in the Automation Status field?",
-   options:[
-     "It maps it to the 'In Progress' status in TestOps",
-     "It maps it directly to its exact corresponding TestOps Automation Status field value",
-     "It skips the row and logs a warning",
-     "It converts it to the default 'Not Automated' status"
-   ],
-   answer:1,
-   explanation:"During import, all CSV values are automatically mapped to their exact corresponding TestOps fields. The value 'Automation In Progress' maps directly to the Automation Status field in the resulting TestOps record with no transformation."},
-
-  // ── MULTIPLE CHOICE: AI Track 1 ──
-  {category:"AI Test Generation",
-   q:"In AI Test Generation Track 1, where do you begin the requirement selection process?",
-   options:[
-     "The Katalon AI tab → Enter a prompt",
-     "Tests → Test Cases → Create → AI Generate",
-     "The Plans tab in the left-hand TestOps menu → select a Sprint or Release",
-     "Assets → Requirements → Generate Cases"
-   ],
-   answer:2,
-   explanation:"Track 1 initiates from the Plans tab in the left-hand TestOps menu. You select a Sprint or Release to open the desired requirements list, then select an individual requirement to open the requirement conversion window."},
-
-  {category:"AI Test Generation",
-   q:"After Katalon AI analyses a requirement in Track 1, what three items are presented to the user?",
-   options:[
-     "A quality score, a list of test steps, and a save button",
-     "A requirement quality section, the full selected requirement text, and an 'Add More Context' button",
-     "A list of generated test cases, a discard option, and a requirements summary",
-     "A quality rating, auto-generated test steps, and a Jira sync option"
-   ],
-   answer:1,
-   explanation:"After analysis, the user sees: (1) a Requirement Quality section identifying gaps and offering clarification opportunities, (2) a listing of the entire selected requirement, and (3) a button allowing text entry of additional requirement context. These clarifications do NOT affect the requirement text in Jira."},
-
-  {category:"AI Test Generation",
-   q:"What is the maximum number of test cases Katalon AI can generate per requirement in Track 1?",
-   options:["5","20","15","10"],
-   answer:3,
-   explanation:"There is a maximum of 10 test cases generated per requirement in Track 1. For best results, ensure requirements are granular and detailed before generating."},
-
-  // ── FILL-IN-THE-BLANK ──
-  {type:"fill",category:"CSV Bulk Import",
-   q:"A CSV file has a test case name that reads <code>verify..login</code>. What syntax rule does this violate?",
-   code:'Rule violated: <span id="b1">_________________________</span> are never allowed anywhere in the name or path.',
-   blanks:[{id:"b1",answer:"double periods",alt:["Double periods","..","double period (..)"],placeholder:"restricted syntax"}],
-   explanation:"Double periods (..) are explicitly in the Restricted Syntax list. Names and paths must never contain '..' anywhere. They also cannot end with a single period."},
-
-  {type:"fill",category:"Test Case Fundamentals",
-   q:"Complete the description of the <strong>'No Assumptions'</strong> durable principle:",
-   code:'Do not assume any <span id="b2">____________________</span>, pre-requisite, or state of the application.',
-   blanks:[{id:"b2",answer:"functionality",alt:["Functionality"],placeholder:"..."}],
-   explanation:"The No Assumptions principle states: Do not assume any functionality, pre-requisite, or state of the application. Each test case must be self-contained and not rely on prior test execution."},
-
-  {type:"fill",category:"Katalon Ecosystem",
-   q:"Complete the synthesis statement about the Katalon architecture:",
-   code:'Every test case converges into a standardized, durable <span id="b3">________________</span> record.',
-   blanks:[{id:"b3",answer:"TestOps",alt:["testops","Katalon TestOps"],placeholder:"product name"}],
-   explanation:"Regardless of origin (manual UI entry, bulk CSV import, or AI generation), every test case converges into a standardized, durable TestOps record — the foundation of the Continuous Quality Loop."},
-
-  // ── ORDER THE STEPS ──
-  {type:"order",category:"Data Intake Pathways",
-   q:"Drag to arrange these steps in the correct order for completing a Bulk CSV Import into Katalon TestOps:",
-   items:[
-     {id:"o1",text:"Prepare and validate your CSV file (naming rules, column headers, ALM linkages)"},
-     {id:"o2",text:"Navigate to Tests → Test Cases in Katalon TestOps"},
-     {id:"o3",text:"Click the Import button and upload the CSV file"},
-     {id:"o4",text:"Review the import preview and confirm field mappings"},
-     {id:"o5",text:"Confirm the import — TestOps maps all values to corresponding fields"},
-     {id:"o6",text:"Verify created test cases appear in the correct folder location"}
-   ],
-   correctOrder:["o1","o2","o3","o4","o5","o6"],
-   explanation:"Correct sequence: prepare/validate CSV first, navigate to Test Cases, trigger the import, review the preview mappings, confirm execution, then verify the results in the target folder."},
-
-  {type:"order",category:"AI Test Generation",
-   q:"Drag to arrange the correct steps for Track 2: Prompt-Based Generation (Jira/ADO):",
-   items:[
-     {id:"p1",text:"Select the Katalon AI tab from the left-hand menu"},
-     {id:"p2",text:"Enter a specific prompt referencing the desired Jira/ADO ticket and save location"},
-     {id:"p3",text:"Submit the prompt and wait for Katalon AI to process"},
-     {id:"p4",text:"Expand the 'Ongoing Activities' section to monitor AI execution"},
-     {id:"p5",text:"Click 'Review Generated Test Cases' link to navigate to the target requirement page"},
-     {id:"p6",text:"Review, edit, or save the generated draft test cases"}
-   ],
-   correctOrder:["p1","p2","p3","p4","p5","p6"],
-   explanation:"Track 2 flow: open Katalon AI tab → craft a specific prompt with save location → submit → monitor via Ongoing Activities → navigate to requirement page → review/save drafts."},
-
-  {type:"order",category:"Test Case Fundamentals",
-   q:"Drag to arrange the six stages of the Continuous Quality Loop in the correct order:",
-   items:[
-     {id:"c1",text:"Requirement Analysis"},
-     {id:"c2",text:"Test Plan Creation"},
-     {id:"c3",text:"Test Case Creation"},
-     {id:"c4",text:"Test Case Execution"},
-     {id:"c5",text:"Defect Logging"},
-     {id:"c6",text:"Defect Fix & Re-verification"}
-   ],
-   correctOrder:["c1","c2","c3","c4","c5","c6"],
-   explanation:"The six-stage Continuous Quality Loop: 1. Requirement Analysis → 2. Test Plan Creation → 3. Test Case Creation → 4. Test Case Execution → 5. Defect Logging → 6. Defect Fix & Re-verification. The cycle then repeats."}
+  // ── Exercises ─────────────────────────────────────────────────────
+  {
+    type: "bug",
+    category: "Bulk CSV Import",
+    q: "A CSV import is failing validation. Click the line containing the syntax violation:",
+    hint: "Hint: Check the restricted syntax rules for names and paths.",
+    code: [
+      { id: "c1", line: "login_test(chrome)", bug: false },
+      { id: "c2", line: "verify-resources-page", bug: false },
+      { id: "c3", line: "regression..suite/checkout", bug: true },
+      { id: "c4", line: "smoke_test_01", bug: false },
+      { id: "c5", line: "user_auth(happy-path)", bug: false }
+    ],
+    explanation: "Line 3 uses double periods (..) which is explicitly restricted — 'Never use .. (double periods) anywhere in the name or path'. All other entries use allowed characters: hyphens, underscores, and parentheses."
+  },
+  {
+    type: "order",
+    category: "AI Test Generation",
+    q: "Drag to arrange the correct sequence for generating test cases using Track 1 (Plans Tab UI Conversion):",
+    items: [
+      { id: "t1", text: "Navigate to the Plans tab in the left-hand TestOps menu" },
+      { id: "t2", text: "Select a Sprint or Release to open the requirements list" },
+      { id: "t3", text: "Click a requirement to open the requirement conversion window" },
+      { id: "t4", text: "Review the AI Requirement Quality score and answer clarification questions" },
+      { id: "t5", text: "Click 'Generate Test Cases' to produce AI draft test cases" },
+      { id: "t6", text: "Review, edit, or discard AI drafts and save finalised cases" }
+    ],
+    correctOrder: ["t1", "t2", "t3", "t4", "t5", "t6"],
+    explanation: "Track 1 flow: Navigate to Plans → Select Sprint/Release → Open requirement conversion window → Review quality score and clarify → Generate → Review and save. This ensures requirements are analysed before generation begins."
+  }
 ];
 
 const PASS_MARK = 0.75;
 const QUIZ_NAME = "Katalon Manual Test Case Creation";
 const ADMIN_PW = "KatalonTrue";
-const CATS = ["Katalon Ecosystem","Test Case Fundamentals","Data Intake Pathways","CSV Bulk Import","AI Test Generation"];
+const CATS = ["Ecosystem", "Lifecycle & Principles", "Manual UI Entry", "Bulk CSV Import", "AI Test Generation"];
 
 // ── STATE ──────────────────────────────────────────────────────────────
-let curQ=0,score=0,answered=false,userAnswers=[],streak=0,catScores={};
-let traineeName='',traineeOrg='',questions=[];
+let curQ = 0, score = 0, answered = false, userAnswers = [], streak = 0, catScores = {};
+let traineeName = '', traineeOrg = '', questions = [];
 
 // ── SCREENS ────────────────────────────────────────────────────────────
-function showScreen(id){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
 // ── NAME ENTRY ─────────────────────────────────────────────────────────
-document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz();});
+document.getElementById('name-input').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('org-input').focus(); });
+document.getElementById('org-input').addEventListener('keydown', e => { if (e.key === 'Enter') startQuiz(); });
 
-function startQuiz(){
-  const v=document.getElementById('name-input').value.trim();
-  if(!v){document.getElementById('name-error').classList.add('show');return;}
-  document.getElementById('name-error').classList.remove('show');
-  traineeName=v;
-  traineeOrg=document.getElementById('org-input').value.trim();
-  document.getElementById('quiz-greeting').textContent='Good luck, '+v.split(' ')[0]+'!';
+function startQuiz() {
+  const nameVal = document.getElementById('name-input').value.trim();
+  const orgVal = document.getElementById('org-input').value.trim();
+  let valid = true;
+
+  if (!nameVal) {
+    document.getElementById('name-error').classList.add('show');
+    valid = false;
+  } else {
+    document.getElementById('name-error').classList.remove('show');
+  }
+  if (!orgVal) {
+    document.getElementById('org-error').classList.add('show');
+    valid = false;
+  } else {
+    document.getElementById('org-error').classList.remove('show');
+  }
+  if (!valid) return;
+
+  traineeName = nameVal;
+  traineeOrg = orgVal;
+  document.getElementById('quiz-greeting').textContent = 'Good luck, ' + nameVal.split(' ')[0] + '!';
   initQuiz();
   showScreen('screen-quiz');
 }
 
 // ── QUIZ INIT ──────────────────────────────────────────────────────────
-function initQuiz(){
-  curQ=0;score=0;answered=false;userAnswers=[];streak=0;catScores={};
-  CATS.forEach(c=>{catScores[c]={correct:0,total:0}});
-  questions=[...ALL_QUESTIONS].sort(()=>Math.random()-.5);
-  questions.forEach(q=>{if(catScores[q.category])catScores[q.category].total++;});
+function initQuiz() {
+  curQ = 0; score = 0; answered = false; userAnswers = []; streak = 0; catScores = {};
+  CATS.forEach(c => { catScores[c] = { correct: 0, total: 0 }; });
+  questions = [...ALL_QUESTIONS].sort(() => Math.random() - .5);
+  questions.forEach(q => { if (catScores[q.category]) catScores[q.category].total++; });
   renderQuestion();
 }
 
 // ── RENDER ─────────────────────────────────────────────────────────────
-function renderQuestion(){
-  const q=questions[curQ];
-  answered=false;
+function renderQuestion() {
+  const q = questions[curQ];
+  answered = false;
 
-  const oldCat=document.getElementById('q-category');
-  const labels={fill:'Fill in the Blank',bug:'Spot the Bug',order:'Order the Steps'};
-  if(q.type){
-    oldCat.className='exercise-badge';
-    oldCat.innerHTML='&#x2328; '+labels[q.type]+' &mdash; '+q.category;
-  }else{
-    oldCat.className='category-pill';
-    oldCat.textContent=q.category;
+  const catEl = document.getElementById('q-category');
+  const labels = { fill: 'Fill in the Blank', bug: 'Spot the Bug', order: 'Order the Steps' };
+  if (q.type) {
+    catEl.className = 'exercise-badge';
+    catEl.innerHTML = '&#x2328; ' + labels[q.type] + ' &mdash; ' + q.category;
+  } else {
+    catEl.className = 'category-pill';
+    catEl.textContent = q.category;
   }
 
-  document.getElementById('q-num').textContent='Question '+(curQ+1)+' of '+questions.length;
-  document.getElementById('q-text').innerHTML=q.q;
+  document.getElementById('q-num').textContent = 'Question ' + (curQ + 1) + ' of ' + questions.length;
+  document.getElementById('q-text').innerHTML = q.q;
 
-  const optEl=document.getElementById('options');
-  const fb=document.getElementById('feedback');
-  fb.className='feedback';fb.innerHTML='';
-  document.getElementById('next-btn').className='btn';
+  const optEl = document.getElementById('options');
+  const fb = document.getElementById('feedback');
+  fb.className = 'feedback'; fb.innerHTML = '';
+  document.getElementById('next-btn').className = 'btn';
 
-  if(!q.type){
-    optEl.innerHTML='';
-    ['A','B','C','D'].forEach((L,i)=>{
-      const b=document.createElement('button');
-      b.className='option';
-      b.innerHTML='<span class="opt-letter">'+L+'</span><span>'+q.options[i]+'</span>';
-      b.onclick=()=>selectAnswer(i);
+  if (!q.type) {
+    optEl.innerHTML = '';
+    ['A', 'B', 'C', 'D'].forEach((L, i) => {
+      const b = document.createElement('button');
+      b.className = 'option';
+      b.innerHTML = '<span class="opt-letter">' + L + '</span><span>' + q.options[i] + '</span>';
+      b.onclick = () => selectAnswer(i);
       optEl.appendChild(b);
     });
-  } else if(q.type==='fill'){
-    optEl.innerHTML='<div class="code-label">Complete the sentence</div>'
-      +'<div class="code-block" id="code-display">'+q.code+'</div>'
-      +'<button class="check-btn" id="fill-check-btn" onclick="checkFill()">Check Answer</button>';
-    q.blanks.forEach(bl=>{
-      const span=document.getElementById(bl.id);
-      if(span){
-        const inp=document.createElement('input');
-        inp.className='blank-input';
-        inp.setAttribute('data-answer',bl.answer);
-        inp.setAttribute('data-alt',(bl.alt||[]).join('||'));
-        inp.placeholder=bl.placeholder||'...';
-        inp.size=Math.max((bl.placeholder||'').length+2,14);
-        inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkFill();});
+  } else if (q.type === 'fill') {
+    optEl.innerHTML = '<div class="code-label">Complete the code</div>'
+      + '<div class="code-block" id="code-display">' + q.code + '</div>'
+      + '<button class="check-btn" id="fill-check-btn" onclick="checkFill()">Check Answer</button>';
+    q.blanks.forEach(bl => {
+      const span = document.getElementById(bl.id);
+      if (span) {
+        const inp = document.createElement('input');
+        inp.className = 'blank-input';
+        inp.setAttribute('data-answer', bl.answer);
+        inp.setAttribute('data-alt', (bl.alt || []).join('||'));
+        inp.placeholder = bl.placeholder || '...';
+        inp.size = Math.max((bl.placeholder || '').length + 2, 14);
+        inp.addEventListener('keydown', e => { if (e.key === 'Enter') checkFill(); });
         span.replaceWith(inp);
       }
     });
-    setTimeout(()=>{const i=document.querySelector('.blank-input');if(i)i.focus();},50);
-  } else if(q.type==='order'){
-    const shuffled=[...q.items].sort(()=>Math.random()-.5);
-    let html='<div class="code-label">Drag to put in correct order</div>'
-      +'<div class="drag-list" id="drag-list">';
-    shuffled.forEach((item,i)=>{
-      html+='<div class="drag-item" id="'+item.id+'" draggable="true" data-id="'+item.id+'">'
-        +'<span class="drag-handle">&#x2807;</span>'
-        +'<span class="drag-num">'+(i+1)+'</span>'
-        +'<span>'+item.text+'</span>'
-        +'</div>';
+    setTimeout(() => { const i = document.querySelector('.blank-input'); if (i) i.focus(); }, 50);
+  } else if (q.type === 'bug') {
+    let html = '<div class="bug-hint">' + q.hint + '</div>'
+      + '<div class="code-label">Click the buggy line</div>'
+      + '<div class="code-block" id="bug-code">';
+    q.code.forEach(l => {
+      html += '<span class="bug-line" id="' + l.id + '" data-bug="' + l.bug + '" onclick="selectBug(\'' + l.id + '\')">' + l.line + '</span>';
     });
-    html+='</div><button class="check-btn" onclick="checkOrder()">Check Order</button>';
-    optEl.innerHTML=html;
+    html += '</div>';
+    optEl.innerHTML = html;
+  } else if (q.type === 'order') {
+    const shuffled = [...q.items].sort(() => Math.random() - .5);
+    let html = '<div class="code-label">Drag to put in correct order</div>'
+      + '<div class="drag-list" id="drag-list">';
+    shuffled.forEach((item, i) => {
+      html += '<div class="drag-item" id="' + item.id + '" draggable="true" data-id="' + item.id + '">'
+        + '<span class="drag-handle">&#x2807;</span>'
+        + '<span class="drag-num">' + (i + 1) + '</span>'
+        + '<span>' + item.text + '</span>'
+        + '</div>';
+    });
+    html += '</div><button class="check-btn" onclick="checkOrder()">Check Order</button>';
+    optEl.innerHTML = html;
     initDrag();
   }
 
-  const pct=(curQ/questions.length)*100;
-  document.getElementById('progress-fill').style.width=pct+'%';
-  document.getElementById('progress-label').textContent=curQ+' / '+questions.length;
-  const sb=document.getElementById('streak-banner');
-  if(streak>=3){sb.textContent='🔥 '+streak+' correct in a row!';sb.className='streak show';}
-  else sb.className='streak';
-  const card=document.getElementById('question-card');
-  card.style.animation='none';card.offsetHeight;card.style.animation='slideUp .4s ease both';
+  const pct = (curQ / questions.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = curQ + ' / ' + questions.length;
+  const sb = document.getElementById('streak-banner');
+  if (streak >= 3) { sb.textContent = '🔥 ' + streak + ' correct in a row!'; sb.className = 'streak show'; }
+  else sb.className = 'streak';
+  const card = document.getElementById('question-card');
+  card.style.animation = 'none'; card.offsetHeight; card.style.animation = 'slideUp .4s ease both';
 }
 
 // ── MCQ ────────────────────────────────────────────────────────────────
-function selectAnswer(idx){
-  if(answered)return;
-  answered=true;
-  const q=questions[curQ];
-  const opts=document.querySelectorAll('.option');
-  const ok=idx===q.answer;
-  opts.forEach((o,i)=>{
-    o.disabled=true;o.classList.add('disabled');
-    if(i===q.answer)o.classList.add('correct');
-    if(i===idx&&!ok)o.classList.add('wrong');
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[curQ];
+  const opts = document.querySelectorAll('.option');
+  const ok = idx === q.answer;
+  opts.forEach((o, i) => {
+    o.disabled = true; o.classList.add('disabled');
+    if (i === q.answer) o.classList.add('correct');
+    if (i === idx && !ok) o.classList.add('wrong');
   });
-  recordResult(ok,q.options[idx],q.options[q.answer]);
+  recordResult(ok, q.options[idx], q.options[q.answer]);
 }
 
-function recordResult(ok,yours,correct){
-  const q=questions[curQ];
-  const fb=document.getElementById('feedback');
-  if(ok){
-    score++;streak++;
-    if(catScores[q.category])catScores[q.category].correct++;
-    fb.className='feedback correct show';
-    fb.innerHTML='<strong>&#10003; Correct!</strong>'+q.explanation;
-  }else{
-    streak=0;
-    fb.className='feedback wrong show';
-    fb.innerHTML='<strong>&#10007; Not quite.</strong>'+q.explanation;
+function recordResult(ok, yours, correct) {
+  const q = questions[curQ];
+  const fb = document.getElementById('feedback');
+  if (ok) {
+    score++; streak++;
+    if (catScores[q.category]) catScores[q.category].correct++;
+    fb.className = 'feedback correct show';
+    fb.innerHTML = '<strong>&#10003; Correct!</strong>' + q.explanation;
+  } else {
+    streak = 0;
+    fb.className = 'feedback wrong show';
+    fb.innerHTML = '<strong>&#10007; Not quite.</strong>' + q.explanation;
   }
-  userAnswers.push({q:q.q,category:q.category,yours:String(yours),correct:String(correct),ok,type:q.type||'mcq'});
-  const nb=document.getElementById('next-btn');
-  nb.textContent=curQ<questions.length-1?'Next \u2192':'See Results';
-  nb.className='btn show';
-  const sb=document.getElementById('streak-banner');
-  if(streak>=3){sb.textContent='🔥 '+streak+' correct in a row!';sb.className='streak show';}
+  userAnswers.push({ q: q.q, category: q.category, yours: String(yours), correct: String(correct), ok, type: q.type || 'mcq' });
+  const nb = document.getElementById('next-btn');
+  nb.textContent = curQ < questions.length - 1 ? 'Next \u2192' : 'See Results';
+  nb.className = 'btn show';
+  const sb = document.getElementById('streak-banner');
+  if (streak >= 3) { sb.textContent = '🔥 ' + streak + ' correct in a row!'; sb.className = 'streak show'; }
 }
 
 // ── FILL-IN-BLANK ──────────────────────────────────────────────────────
-function checkFill(){
-  if(answered)return;
-  answered=true;
-  const inputs=document.querySelectorAll('.blank-input');
-  let allOk=true;
-  inputs.forEach(inp=>{
-    const got=inp.value.trim().toLowerCase();
-    const expected=inp.getAttribute('data-answer').toLowerCase();
-    const alts=(inp.getAttribute('data-alt')||'').split('||').map(a=>a.trim().toLowerCase()).filter(Boolean);
-    const ok=got===expected||alts.includes(got);
-    inp.classList.add(ok?'correct-input':'wrong-input');
-    inp.disabled=true;
-    if(!ok){allOk=false;inp.value=inp.getAttribute('data-answer');}
+function checkFill() {
+  if (answered) return;
+  answered = true;
+  const inputs = document.querySelectorAll('.blank-input');
+  let allOk = true;
+  inputs.forEach(inp => {
+    const got = inp.value.trim();
+    const expected = inp.getAttribute('data-answer');
+    const alts = (inp.getAttribute('data-alt') || '').split('||').map(a => a.trim()).filter(Boolean);
+    const ok = got === expected || alts.includes(got);
+    inp.classList.add(ok ? 'correct-input' : 'wrong-input');
+    inp.disabled = true;
+    if (!ok) { allOk = false; inp.value = expected; }
   });
-  const btn=document.getElementById('fill-check-btn');
-  if(btn)btn.disabled=true;
-  recordResult(allOk,allOk?'Correct':'Incorrect',questions[curQ].blanks.map(b=>b.answer).join(', '));
+  const btn = document.getElementById('fill-check-btn');
+  if (btn) btn.disabled = true;
+  recordResult(allOk, allOk ? 'Correct' : 'Incorrect', questions[curQ].blanks.map(b => b.answer).join(', '));
+}
+
+// ── SPOT THE BUG ───────────────────────────────────────────────────────
+function selectBug(id) {
+  if (answered) return;
+  answered = true;
+  const q = questions[curQ];
+  const correctLine = q.code.find(l => l.bug);
+  const ok = id === correctLine.id;
+  document.querySelectorAll('.bug-line').forEach(l => {
+    l.style.pointerEvents = 'none';
+    if (l.id === correctLine.id) l.classList.add('correct-bug');
+    if (l.id === id && !ok) l.classList.add('wrong-bug');
+  });
+  recordResult(ok, 'Line ' + id, 'Line ' + correctLine.id);
 }
 
 // ── DRAG TO ORDER ──────────────────────────────────────────────────────
-let dragSrc=null;
-function initDrag(){
-  const list=document.getElementById('drag-list');
-  if(!list)return;
-  list.addEventListener('dragstart',e=>{
-    dragSrc=e.target.closest('.drag-item');
-    if(dragSrc)e.dataTransfer.effectAllowed='move';
+let dragSrc = null;
+function initDrag() {
+  const list = document.getElementById('drag-list');
+  if (!list) return;
+  list.addEventListener('dragstart', e => {
+    dragSrc = e.target.closest('.drag-item');
+    if (dragSrc) e.dataTransfer.effectAllowed = 'move';
   });
-  list.addEventListener('dragover',e=>{
+  list.addEventListener('dragover', e => {
     e.preventDefault();
-    const t=e.target.closest('.drag-item');
-    if(t&&t!==dragSrc)t.classList.add('drag-over');
+    const t = e.target.closest('.drag-item');
+    if (t && t !== dragSrc) t.classList.add('drag-over');
   });
-  list.addEventListener('dragleave',e=>{
-    const t=e.target.closest('.drag-item');
-    if(t)t.classList.remove('drag-over');
+  list.addEventListener('dragleave', e => {
+    const t = e.target.closest('.drag-item');
+    if (t) t.classList.remove('drag-over');
   });
-  list.addEventListener('drop',e=>{
+  list.addEventListener('drop', e => {
     e.preventDefault();
-    const t=e.target.closest('.drag-item');
-    if(t&&t!==dragSrc){
+    const t = e.target.closest('.drag-item');
+    if (t && t !== dragSrc) {
       t.classList.remove('drag-over');
-      const items=[...list.querySelectorAll('.drag-item')];
-      if(items.indexOf(dragSrc)<items.indexOf(t))t.after(dragSrc);else t.before(dragSrc);
+      const items = [...list.querySelectorAll('.drag-item')];
+      if (items.indexOf(dragSrc) < items.indexOf(t)) t.after(dragSrc); else t.before(dragSrc);
       updateDragNums(list);
     }
   });
   // touch support
-  let ti=null,tc=null;
-  list.addEventListener('touchstart',e=>{
-    ti=e.target.closest('.drag-item');
-    if(!ti)return;
-    tc=ti.cloneNode(true);
-    tc.style.cssText='position:fixed;opacity:.8;pointer-events:none;z-index:999;width:'+ti.offsetWidth+'px;left:0;top:0;';
+  let ti = null, tc = null;
+  list.addEventListener('touchstart', e => {
+    ti = e.target.closest('.drag-item');
+    if (!ti) return;
+    tc = ti.cloneNode(true);
+    tc.style.cssText = 'position:fixed;opacity:.8;pointer-events:none;z-index:999;width:' + ti.offsetWidth + 'px;left:0;top:0;';
     document.body.appendChild(tc);
-  },{passive:true});
-  list.addEventListener('touchmove',e=>{
-    if(!ti||!tc)return;e.preventDefault();
-    const t=e.touches[0];
-    tc.style.left=(t.clientX-ti.offsetWidth/2)+'px';
-    tc.style.top=(t.clientY-24)+'px';
-    const el=document.elementFromPoint(t.clientX,t.clientY);
-    const ov=el&&el.closest('.drag-item');
-    list.querySelectorAll('.drag-item').forEach(i=>i.classList.remove('drag-over'));
-    if(ov&&ov!==ti)ov.classList.add('drag-over');
-  },{passive:false});
-  list.addEventListener('touchend',e=>{
-    if(!ti||!tc)return;tc.remove();tc=null;
-    const t=e.changedTouches[0];
-    const el=document.elementFromPoint(t.clientX,t.clientY);
-    const tgt=el&&el.closest('.drag-item');
-    list.querySelectorAll('.drag-item').forEach(i=>i.classList.remove('drag-over'));
-    if(tgt&&tgt!==ti){
-      const items=[...list.querySelectorAll('.drag-item')];
-      if(items.indexOf(ti)<items.indexOf(tgt))tgt.after(ti);else tgt.before(ti);
+  }, { passive: true });
+  list.addEventListener('touchmove', e => {
+    if (!ti || !tc) return; e.preventDefault();
+    const t = e.touches[0];
+    tc.style.left = (t.clientX - ti.offsetWidth / 2) + 'px';
+    tc.style.top = (t.clientY - 24) + 'px';
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const ov = el && el.closest('.drag-item');
+    list.querySelectorAll('.drag-item').forEach(i => i.classList.remove('drag-over'));
+    if (ov && ov !== ti) ov.classList.add('drag-over');
+  }, { passive: false });
+  list.addEventListener('touchend', e => {
+    if (!ti || !tc) return; tc.remove(); tc = null;
+    const t = e.changedTouches[0];
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    const tgt = el && el.closest('.drag-item');
+    list.querySelectorAll('.drag-item').forEach(i => i.classList.remove('drag-over'));
+    if (tgt && tgt !== ti) {
+      const items = [...list.querySelectorAll('.drag-item')];
+      if (items.indexOf(ti) < items.indexOf(tgt)) tgt.after(ti); else tgt.before(ti);
       updateDragNums(list);
     }
-    ti=null;
-  },{passive:true});
+    ti = null;
+  }, { passive: true });
 }
-function updateDragNums(list){
-  [...list.querySelectorAll('.drag-item')].forEach((item,i)=>{
-    item.querySelector('.drag-num').textContent=i+1;
+function updateDragNums(list) {
+  [...list.querySelectorAll('.drag-item')].forEach((item, i) => {
+    item.querySelector('.drag-num').textContent = i + 1;
   });
 }
-function checkOrder(){
-  if(answered)return;
-  answered=true;
-  const q=questions[curQ];
-  const list=document.getElementById('drag-list');
-  const current=[...list.querySelectorAll('.drag-item')].map(i=>i.getAttribute('data-id'));
-  const ok=JSON.stringify(current)===JSON.stringify(q.correctOrder);
-  current.forEach((id,i)=>{
-    const el=document.getElementById(id);
-    if(el)el.classList.add(id===q.correctOrder[i]?'correct-order':'wrong-order');
+function checkOrder() {
+  if (answered) return;
+  answered = true;
+  const q = questions[curQ];
+  const list = document.getElementById('drag-list');
+  const current = [...list.querySelectorAll('.drag-item')].map(i => i.getAttribute('data-id'));
+  const ok = JSON.stringify(current) === JSON.stringify(q.correctOrder);
+  current.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add(id === q.correctOrder[i] ? 'correct-order' : 'wrong-order');
   });
-  const btn=list.nextElementSibling;
-  if(btn&&btn.classList.contains('check-btn'))btn.disabled=true;
-  recordResult(ok,'Submitted order',ok?'Correct order!':q.correctOrder.map((id,idx)=>{
-    const item=q.items.find(x=>x.id===id);
-    return (idx+1)+'. '+(item?item.text:'');
+  const btn = list.nextElementSibling;
+  if (btn && btn.classList.contains('check-btn')) btn.disabled = true;
+  recordResult(ok, 'Submitted order', ok ? 'Correct order!' : q.correctOrder.map((id, i) => {
+    const item = q.items.find(x => x.id === id);
+    return (i + 1) + '. ' + (item ? item.text : '');
   }).join(' | '));
 }
 
 // ── NEXT / SCORE ───────────────────────────────────────────────────────
-function nextQuestion(){
+function nextQuestion() {
   curQ++;
-  if(curQ>=questions.length)showScore();
+  if (curQ >= questions.length) showScore();
   else renderQuestion();
 }
 
-function showScore(){
+function showScore() {
   showScreen('screen-score');
-  const pct=score/questions.length;
-  document.getElementById('score-num').textContent=score;
-  document.getElementById('score-denom').textContent='/ '+questions.length;
-  let title,sub;
-  if(pct>=.9){title='🏆 Outstanding!';sub='Excellent mastery of Manual Test Case Creation.';}
-  else if(pct>=.75){title='✅ Well Done!';sub='Strong understanding with a few areas to review.';}
-  else if(pct>=.6){title='📘 Good Effort';sub='Solid foundation — revisit the sections below.';}
-  else{title='🔄 Keep Practicing';sub='Review the training material and retake the quiz.';}
-  document.getElementById('score-title').textContent=title;
-  document.getElementById('score-sub').textContent=sub+' You scored '+score+' out of '+questions.length+' ('+Math.round(pct*100)+'%).';
-  setTimeout(()=>{document.getElementById('ring-fill').style.strokeDashoffset=440-(pct*440);},100);
-  const catEl=document.getElementById('cat-stats');catEl.innerHTML='';
-  CATS.forEach(c=>{
-    const d=catScores[c];if(!d||d.total===0)return;
-    const p=Math.round((d.correct/d.total)*100);
-    catEl.innerHTML+='<div class="cat-stat"><div class="cat-stat-label">'+c+'</div><div class="cat-stat-score">'+d.correct+'/'+d.total+'</div><div class="cat-stat-bar"><div class="cat-stat-fill" style="width:'+p+'%"></div></div></div>';
+  const pct = score / questions.length;
+  document.getElementById('score-num').textContent = score;
+  document.getElementById('score-denom').textContent = '/ ' + questions.length;
+  let title, sub;
+  if (pct >= .9) { title = '🏆 Outstanding!'; sub = 'Excellent mastery of Manual Test Case Creation in Katalon.'; }
+  else if (pct >= .75) { title = '✅ Well Done!'; sub = 'Strong understanding — a few areas worth revisiting.'; }
+  else if (pct >= .6) { title = '📘 Good Effort'; sub = 'Solid foundation — review the flagged sections below.'; }
+  else { title = '🔄 Keep Practicing'; sub = 'Review the training material and retake the quiz when ready.'; }
+  document.getElementById('score-title').textContent = title;
+  document.getElementById('score-sub').textContent = sub + ' You scored ' + score + ' out of ' + questions.length + ' (' + Math.round(pct * 100) + '%).';
+  setTimeout(() => { document.getElementById('ring-fill').style.strokeDashoffset = 440 - (pct * 440); }, 100);
+  const catEl = document.getElementById('cat-stats'); catEl.innerHTML = '';
+  CATS.forEach(c => {
+    const d = catScores[c]; if (!d || d.total === 0) return;
+    const p = Math.round((d.correct / d.total) * 100);
+    catEl.innerHTML += '<div class="cat-stat"><div class="cat-stat-label">' + c + '</div><div class="cat-stat-score">' + d.correct + '/' + d.total + '</div><div class="cat-stat-bar"><div class="cat-stat-fill" style="width:' + p + '%"></div></div></div>';
   });
-  document.getElementById('breakdown-rows').innerHTML=userAnswers.map(a=>{
-    const icon=a.ok?'✅':'❌';
-    return '<div class="breakdown-row"><div class="breakdown-icon">'+icon+'</div><div>'
-      +'<div class="breakdown-q">'+a.q+'</div>'
-      +(!a.ok?'<div class="breakdown-a w">Yours: '+a.yours+'</div><div class="breakdown-a c">Correct: '+a.correct+'</div>'
-             :'<div class="breakdown-a c">'+a.correct+'</div>')
-      +'</div></div>';
+  document.getElementById('breakdown-rows').innerHTML = userAnswers.map(a => {
+    const icon = a.ok ? '✅' : '❌';
+    return '<div class="breakdown-row"><div class="breakdown-icon">' + icon + '</div><div>'
+      + '<div class="breakdown-q">' + a.q + '</div>'
+      + (!a.ok ? '<div class="breakdown-a w">Yours: ' + a.yours + '</div><div class="breakdown-a c">Correct: ' + a.correct + '</div>'
+               : '<div class="breakdown-a c">' + a.correct + '</div>')
+      + '</div></div>';
   }).join('');
-  saveResult({quiz:QUIZ_NAME,name:traineeName,org:traineeOrg,score,total:questions.length,pct:Math.round(pct*100),passed:pct>=PASS_MARK,catScores:JSON.parse(JSON.stringify(catScores)),ts:new Date().toISOString()});
+  saveResult({ quiz: QUIZ_NAME, name: traineeName, org: traineeOrg, score, total: questions.length, pct: Math.round(pct * 100), passed: pct >= PASS_MARK, catScores: JSON.parse(JSON.stringify(catScores)), ts: new Date().toISOString() });
 }
 
-function restartQuiz(){
-  document.getElementById('ring-fill').style.strokeDashoffset=440;
-  document.getElementById('name-input').value='';
-  document.getElementById('org-input').value='';
+function restartQuiz() {
+  document.getElementById('ring-fill').style.strokeDashoffset = 440;
+  document.getElementById('name-input').value = '';
+  document.getElementById('org-input').value = '';
   showScreen('screen-name');
 }
 
 // ── STORAGE (Upstash Redis via /api/results) ──────────────────────────
-async function saveResult(r){
-  try{
-    await fetch('/api/results',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(r)
+async function saveResult(r) {
+  try {
+    await fetch('/api/results', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(r)
     });
-  }catch(e){console.warn('Failed to save result',e);}
+  } catch (e) { console.warn('Failed to save result', e); }
 }
-async function getResults(){
-  try{
-    const res=await fetch('/api/results');
+async function getResults() {
+  try {
+    const res = await fetch('/api/results');
     return await res.json();
-  }catch(e){return [];}
+  } catch (e) { return []; }
 }
 
 // ── ADMIN ──────────────────────────────────────────────────────────────
-function showAdminLogin(){
-  document.getElementById('pw-input').value='';
+function showAdminLogin() {
+  document.getElementById('pw-input').value = '';
   document.getElementById('pw-error').classList.remove('show');
   showScreen('screen-admin-login');
 }
-document.getElementById('pw-input').addEventListener('keydown',e=>{if(e.key==='Enter')adminLogin();});
-function adminLogin(){
-  if(document.getElementById('pw-input').value===ADMIN_PW){
+document.getElementById('pw-input').addEventListener('keydown', e => { if (e.key === 'Enter') adminLogin(); });
+function adminLogin() {
+  if (document.getElementById('pw-input').value === ADMIN_PW) {
     document.getElementById('pw-error').classList.remove('show');
-    renderDashboard();showScreen('screen-admin');
-  }else{
+    renderDashboard(); showScreen('screen-admin');
+  } else {
     document.getElementById('pw-error').classList.add('show');
-    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').value = '';
   }
 }
-async function renderDashboard(){
-  document.getElementById('kpi-row').innerHTML='<div style="color:var(--muted);font-family:var(--font-mono);font-size:13px;padding:8px 0">Loading results...</div>';
-  document.getElementById('cat-perf-grid').innerHTML='';
-  document.getElementById('results-tbody').innerHTML='';
-  const results=await getResults();
-  const total=results.length;
-  const passed=results.filter(r=>r.passed).length;
-  const avg=total?Math.round(results.reduce((s,r)=>s+r.pct,0)/total):0;
-  const high=total?Math.max(...results.map(r=>r.pct)):0;
-  document.getElementById('kpi-row').innerHTML=
-    '<div class="kpi blue"><div class="kpi-label">Total Attempts</div><div class="kpi-value">'+total+'</div><div class="kpi-sub">all time</div></div>'+
-    '<div class="kpi green"><div class="kpi-label">Pass Rate</div><div class="kpi-value">'+(total?Math.round((passed/total)*100):0)+'%</div><div class="kpi-sub">'+passed+' of '+total+' passed</div></div>'+
-    '<div class="kpi yellow"><div class="kpi-label">Avg Score</div><div class="kpi-value">'+avg+'%</div><div class="kpi-sub">pass mark: 75%</div></div>'+
-    '<div class="kpi '+(high>=75?'green':'red')+'"><div class="kpi-label">Top Score</div><div class="kpi-value">'+high+'%</div><div class="kpi-sub">best attempt</div></div>';
-  const catGrid=document.getElementById('cat-perf-grid');
-  if(!total){catGrid.innerHTML='<p style="color:var(--muted);font-size:13px;grid-column:1/-1;padding:8px 0">No results yet.</p>';}
-  else{
-    const agg={};CATS.forEach(c=>{agg[c]={correct:0,total:0}});
-    results.forEach(r=>{if(r.catScores)Object.entries(r.catScores).forEach(([c,d])=>{if(agg[c]){agg[c].correct+=d.correct;agg[c].total+=d.total;}});});
-    catGrid.innerHTML=CATS.map(c=>{
-      const d=agg[c];const p=d.total?Math.round((d.correct/d.total)*100):0;
-      const col=p>=75?'#4fffb0':p>=50?'#ffd166':'#ff5f87';
-      return '<div class="cat-perf"><div class="cat-perf-top"><div class="cat-perf-name">'+c+'</div><div class="cat-perf-pct" style="color:'+col+'">'+p+'%</div></div><div class="cat-perf-bar"><div class="cat-perf-fill" style="width:'+p+'%;background:'+col+'"></div></div></div>';
+async function renderDashboard() {
+  document.getElementById('kpi-row').innerHTML = '<div style="color:var(--muted);font-family:var(--font-mono);font-size:13px;padding:8px 0">Loading results...</div>';
+  document.getElementById('cat-perf-grid').innerHTML = '';
+  document.getElementById('results-tbody').innerHTML = '';
+  const results = await getResults();
+  const total = results.length;
+  const passed = results.filter(r => r.passed).length;
+  const avg = total ? Math.round(results.reduce((s, r) => s + r.pct, 0) / total) : 0;
+  const high = total ? Math.max(...results.map(r => r.pct)) : 0;
+  document.getElementById('kpi-row').innerHTML =
+    '<div class="kpi blue"><div class="kpi-label">Total Attempts</div><div class="kpi-value">' + total + '</div><div class="kpi-sub">all time</div></div>' +
+    '<div class="kpi green"><div class="kpi-label">Pass Rate</div><div class="kpi-value">' + (total ? Math.round((passed / total) * 100) : 0) + '%</div><div class="kpi-sub">' + passed + ' of ' + total + ' passed</div></div>' +
+    '<div class="kpi yellow"><div class="kpi-label">Avg Score</div><div class="kpi-value">' + avg + '%</div><div class="kpi-sub">pass mark: 75%</div></div>' +
+    '<div class="kpi ' + (high >= 75 ? 'green' : 'red') + '"><div class="kpi-label">Top Score</div><div class="kpi-value">' + high + '%</div><div class="kpi-sub">best attempt</div></div>';
+  const catGrid = document.getElementById('cat-perf-grid');
+  if (!total) { catGrid.innerHTML = '<p style="color:var(--muted);font-size:13px;grid-column:1/-1;padding:8px 0">No results yet.</p>'; }
+  else {
+    const agg = {}; CATS.forEach(c => { agg[c] = { correct: 0, total: 0 }; });
+    results.forEach(r => { if (r.catScores) Object.entries(r.catScores).forEach(([c, d]) => { if (agg[c]) { agg[c].correct += d.correct; agg[c].total += d.total; } }); });
+    catGrid.innerHTML = CATS.map(c => {
+      const d = agg[c]; const p = d.total ? Math.round((d.correct / d.total) * 100) : 0;
+      const col = p >= 75 ? '#4fffb0' : p >= 50 ? '#ffd166' : '#ff5f87';
+      return '<div class="cat-perf"><div class="cat-perf-top"><div class="cat-perf-name">' + c + '</div><div class="cat-perf-pct" style="color:' + col + '">' + p + '%</div></div><div class="cat-perf-bar"><div class="cat-perf-fill" style="width:' + p + '%;background:' + col + '"></div></div></div>';
     }).join('');
   }
-  const tbody=document.getElementById('results-tbody');
-  if(!total){
-    tbody.innerHTML='<tr><td colspan="8"><div class="empty-state"><div class="eicon">📋</div><p>No quiz attempts yet.<br>Results will appear here once trainees complete the quiz.</p></div></td></tr>';
+  const tbody = document.getElementById('results-tbody');
+  if (!total) {
+    tbody.innerHTML = '<tr><td colspan="8"><div class="empty-state"><div class="eicon">📋</div><p>No quiz attempts yet.<br>Results will appear here once trainees complete the quiz.</p></div></td></tr>';
     return;
   }
-  tbody.innerHTML=[...results].reverse().map((r,i)=>{
-    const bc=r.pct>=75?'pass':r.pct>=60?'mid':'fail';
-    const d=new Date(r.ts);
-    const ds=d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
-    const ts=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-    let weak='&mdash;';
-    if(r.catScores){let mp=Infinity,mc=null;Object.entries(r.catScores).forEach(([c,data])=>{if(data.total>0){const p=data.correct/data.total;if(p<mp){mp=p;mc=c;}}});if(mc)weak=mc+' ('+Math.round(mp*100)+'%)';}
-    return '<tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:11px">'+(total-i)+'</td>'
-      +'<td style="color:var(--accent2);font-size:12px">'+esc(r.quiz||'&mdash;')+'</td>'
-      +'<td style="font-weight:500">'+esc(r.name)+'</td>'
-      +'<td style="color:var(--muted);font-size:12px">'+esc(r.org||'&mdash;')+'</td>'
-      +'<td style="font-family:var(--font-mono)">'+r.score+'/'+r.total+' <span style="color:var(--muted)">('+r.pct+'%)</span></td>'
-      +'<td><span class="score-badge '+bc+'">'+(r.pct>=75?'PASS':'FAIL')+'</span></td>'
-      +'<td style="color:var(--muted);font-size:12px">'+ds+' '+ts+'</td>'
-      +'<td style="color:var(--accent3);font-size:12px">'+weak+'</td></tr>';
+  tbody.innerHTML = [...results].reverse().map((r, i) => {
+    const bc = r.pct >= 75 ? 'pass' : r.pct >= 60 ? 'mid' : 'fail';
+    const d = new Date(r.ts);
+    const ds = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const ts = d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    let weak = '&mdash;';
+    if (r.catScores) { let mp = Infinity, mc = null; Object.entries(r.catScores).forEach(([c, data]) => { if (data.total > 0) { const p = data.correct / data.total; if (p < mp) { mp = p; mc = c; } } }); if (mc) weak = mc + ' (' + Math.round(mp * 100) + '%)'; }
+    return '<tr><td style="color:var(--muted);font-family:var(--font-mono);font-size:11px">' + (total - i) + '</td>'
+      + '<td style="color:var(--accent2);font-size:12px">' + esc(r.quiz || '&mdash;') + '</td>'
+      + '<td style="font-weight:500">' + esc(r.name) + '</td>'
+      + '<td style="color:var(--muted);font-size:12px">' + esc(r.org || '&mdash;') + '</td>'
+      + '<td style="font-family:var(--font-mono)">' + r.score + '/' + r.total + ' <span style="color:var(--muted)">(' + r.pct + '%)</span></td>'
+      + '<td><span class="score-badge ' + bc + '">' + (r.pct >= 75 ? 'PASS' : 'FAIL') + '</span></td>'
+      + '<td style="color:var(--muted);font-size:12px">' + ds + ' ' + ts + '</td>'
+      + '<td style="color:var(--accent3);font-size:12px">' + weak + '</td></tr>';
   }).join('');
 }
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-async function clearResults(){
-  if(confirm('Clear ALL quiz results? This cannot be undone.')){
-    try{await fetch('/api/results',{method:'DELETE'});}catch(e){}
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+async function clearResults() {
+  if (confirm('Clear ALL quiz results? This cannot be undone.')) {
+    try { await fetch('/api/results', { method: 'DELETE' }); } catch (e) { }
     renderDashboard();
   }
 }
-async function exportCSV(){
-  const results=await getResults();if(!results.length){alert('No results to export.');return;}
-  const headers=['#','Quiz','Name','Organisation','Score','Percentage','Passed','Timestamp',...CATS];
-  const rows=results.map((r,i)=>{
-    const cats=CATS.map(c=>{const d=r.catScores&&r.catScores[c];return d?d.correct+'/'+d.total:'N/A';});
-    return [i+1,'"'+(r.quiz||'')+'"','"'+r.name+'"','"'+(r.org||'')+'"',r.score+'/'+r.total,r.pct+'%',r.passed?'Yes':'No',r.ts,...cats];
+async function exportCSV() {
+  const results = await getResults(); if (!results.length) { alert('No results to export.'); return; }
+  const headers = ['#', 'Quiz', 'Name', 'Organisation', 'Score', 'Percentage', 'Passed', 'Timestamp', ...CATS];
+  const rows = results.map((r, i) => {
+    const cats = CATS.map(c => { const d = r.catScores && r.catScores[c]; return d ? d.correct + '/' + d.total : 'N/A'; });
+    return [i + 1, '"' + (r.quiz || '') + '"', '"' + r.name + '"', '"' + (r.org || '') + '"', r.score + '/' + r.total, r.pct + '%', r.passed ? 'Yes' : 'No', r.ts, ...cats];
   });
-  const csv=[headers,...rows].map(r=>r.join(',')).join('\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
-  a.download='katalon-manual-quiz-results-'+Date.now()+'.csv';a.click();
+  const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+  a.download = 'katalon-manual-quiz-results-' + Date.now() + '.csv'; a.click();
 }
 </script>
 </body>
