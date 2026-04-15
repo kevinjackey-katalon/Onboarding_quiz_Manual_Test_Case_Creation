@@ -514,16 +514,16 @@ const ALL_QUESTIONS = [
     q: "What are the three tracks in the AI-based test case generation flowchart?",
     options: [
       "UI Recording, Script Generation, and API Generation",
-      "Plans Tab UI Conversion, Prompt-Based Generation (Jira/ADO), and Document-Based Generation",
+      "AI Requirements-Based Generation, AI Prompt-Based Generation (Jira/ADO), and Document-Based Generation",
       "Requirement Sync, AI Drafting, and Manual Review",
       "GenAI Prompting, CSV AI Import, and Studio AI Assist"
     ],
     answer: 1,
-    explanation: "The Three-Track AI Generation Flowchart consists of: Track 1 – Plans Tab UI Conversion (UI-driven path), Track 2 – Prompt-Based Generation via Jira/ADO (agentic path), and Track 3 – Document-Based Generation (ingestion path)."
+    explanation: "The Three-Track AI Generation Flowchart consists of: AI Requirements-Based Generation (UI-driven path), AI Prompt-Based Generation (Jira/ADO) (agentic path), and Document-Based Generation (ingestion path)."
   },
   {
     category: "AI Test Generation",
-    q: "In Track 1 (Plans Tab UI Conversion), what is the initiation step?",
+    q: "In AI Requirements-Based Generation, what is the initiation step?",
     options: [
       "Upload a requirements document via the paperclip icon in the AI tab",
       "Navigate to the Plans tab in the left-hand TestOps menu, then select a Sprint or Release to open the desired requirements list",
@@ -531,11 +531,11 @@ const ALL_QUESTIONS = [
       "Click + CREATE in Tests and select 'AI Generate'"
     ],
     answer: 1,
-    explanation: "Track 1 Initiation Step: Navigate to the Plans tab in the left-hand TestOps menu, then select a Sprint or Release to open the desired related requirements list. This opens the requirement conversion window."
+    explanation: "AI Requirements-Based Generation Initiation Step: Navigate to the Plans tab in the left-hand TestOps menu, then select a Sprint or Release to open the desired related requirements list. This opens the requirement conversion window."
   },
   {
     category: "AI Test Generation",
-    q: "What does the Requirement Quality score shown during Track 1 AI analysis indicate?",
+    q: "What does the Requirement Quality score shown during AI Requirements-Based Generation analysis indicate?",
     options: [
       "The number of test cases that will be generated",
       "The percentage of requirements already covered by existing test cases",
@@ -547,7 +547,7 @@ const ALL_QUESTIONS = [
   },
   {
     category: "AI Test Generation",
-    q: "For Track 2 (Prompt-Based Generation via Jira/ADO), what is the correct step sequence?",
+    q: "For AI Prompt-Based Generation (Jira/ADO), what is the correct step sequence?",
     options: [
       "Upload document → Enter prompt → Click Generate → Save drafts",
       "Select Katalon AI tab → Enter specific prompt → Submit → Expand ongoing activities → Click 'Review Generated Test Cases'",
@@ -555,11 +555,11 @@ const ALL_QUESTIONS = [
       "Open Studio Assist → Connect Jira → Enter ticket ID → Generate"
     ],
     answer: 1,
-    explanation: "Track 2 steps: 1. Select the Katalon AI tab from the left-hand menu, 2. Enter a specific prompt (including save locations, browsers, etc.), 3. Submit prompt → Expand ongoing activities section to see AI at work, 4. Click 'Review Generated Test Cases' link to go to the target requirement page."
+    explanation: "AI Prompt-Based Generation (Jira/ADO) steps: 1. Select the Katalon AI tab from the left-hand menu, 2. Enter a specific prompt (including save locations, browsers, etc.), 3. Submit prompt → Expand ongoing activities section to see AI at work, 4. Click 'Review Generated Test Cases' link to go to the target requirement page."
   },
   {
     category: "AI Test Generation",
-    q: "In Track 3 (Document-Based Generation), how do you attach a requirements document?",
+    q: "In Document-Based Generation, how do you attach a requirements document?",
     options: [
       "Drag and drop it onto the Plans timeline",
       "Upload it via Admin Settings → Document Library",
@@ -567,7 +567,7 @@ const ALL_QUESTIONS = [
       "Import it through the CSV bulk import pathway"
     ],
     answer: 2,
-    explanation: "Track 3 instructions: 1. Select the Katalon AI tab and select file(s) leveraging the 'paperclip' icon. 2. Enter a specific text prompt and submit, then click 'Review Generated Test Cases'. The AI processes the uploaded document directly."
+    explanation: "Document-Based Generation instructions: 1. Select the Katalon AI tab and select file(s) leveraging the 'paperclip' icon. 2. Enter a specific text prompt and submit, then click 'Review Generated Test Cases'. The AI processes the uploaded document directly."
   },
 
   // ── Exercises ─────────────────────────────────────────────────────
@@ -588,7 +588,7 @@ const ALL_QUESTIONS = [
   {
     type: "order",
     category: "AI Test Generation",
-    q: "Drag to arrange the correct sequence for generating test cases using Track 1 (Plans Tab UI Conversion):",
+    q: "Drag to arrange the correct sequence for generating test cases using AI Requirements-Based Generation:",
     items: [
       { id: "t1", text: "Navigate to the Plans tab in the left-hand TestOps menu" },
       { id: "t2", text: "Select a Sprint or Release to open the requirements list" },
@@ -598,7 +598,7 @@ const ALL_QUESTIONS = [
       { id: "t6", text: "Review, edit, or discard AI drafts and save finalised cases" }
     ],
     correctOrder: ["t1", "t2", "t3", "t4", "t5", "t6"],
-    explanation: "Track 1 flow: Navigate to Plans → Select Sprint/Release → Open requirement conversion window → Review quality score and clarify → Generate → Review and save. This ensures requirements are analysed before generation begins."
+    explanation: "AI Requirements-Based Generation flow: Navigate to Plans → Select Sprint/Release → Open requirement conversion window → Review quality score and clarify → Generate → Review and save. This ensures requirements are analysed before generation begins."
   }
 ];
 
