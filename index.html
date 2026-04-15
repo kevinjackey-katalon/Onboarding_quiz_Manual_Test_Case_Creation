@@ -944,18 +944,34 @@ function restartQuiz() {
 // ── STORAGE (Upstash Redis via /api/results) ──────────────────────────
 async function saveResult(r) {
   try {
-    await fetch('/api/results', {
+    const res = await fetch('/api/results', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(r)
     });
-  } catch (e) { console.warn('Failed to save result', e); }
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('[Quiz] Save failed — HTTP ' + res.status + ':', text);
+    } else {
+      console.log('[Quiz] Result saved successfully for:', r.name, '|', r.org);
+    }
+  } catch (e) {
+    console.error('[Quiz] Save error (network/CORS?):', e);
+  }
 }
 async function getResults() {
   try {
     const res = await fetch('/api/results');
+    if (!res.ok) {
+      const text = await res.text();
+      console.error('[Quiz] GET failed — HTTP ' + res.status + ':', text);
+      return [];
+    }
     return await res.json();
-  } catch (e) { return []; }
+  } catch (e) {
+    console.error('[Quiz] GET error:', e);
+    return [];
+  }
 }
 
 // ── ADMIN ──────────────────────────────────────────────────────────────
